@@ -5,7 +5,8 @@
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
         Width="420" Height="650"
         x:Class="AvaloniaApplication1.MainWindow"
-        Title="Image Editor">
+        Title="Image Editor"
+        SizeChanged="OnSizeChanged">
     <Grid RowDefinitions="Auto, *, Auto">
         <!--Title-->
         <Grid Grid.Row="0" Background="Gray" Height="50"  ColumnDefinitions="Auto, *, Auto">
@@ -43,6 +44,10 @@
                 <Button Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" >
                     <Label> Save </Label>
                 </Button>
+            </Grid>
+            <Grid Grid.Column="2" Width="140">
+                  <TextBox x:Name="TB1" Height="20" AcceptsReturn="False" TextWrapping="Wrap"/>
+
             </Grid>
             <Grid Grid.Column="2">
                 

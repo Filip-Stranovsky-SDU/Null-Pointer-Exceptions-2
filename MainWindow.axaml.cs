@@ -25,22 +25,25 @@ public partial class MainWindow : Window
         height = 10;
         pixelSize = 20;
         image = new int[height, width];
-        this.Default();
+
+        UpdatePixelSize();
+        this.ReDraw();
+        
+        
+
     }
     
-    private void Default()
+    private void ReDraw()
     {
         Canvas.Children.Clear();
-        Canvas.Width = width * pixelSize;
-        Canvas.Height = height * pixelSize;
-        image = new int[height, width];
+        UpdateCanvasSize();
         
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                image[i, j] = 0;
-                this.Drawing(i, j);
+                //image[i, j] = 0;
+                this.DrawPixel(i, j);
             }
         }
     }
@@ -80,6 +83,8 @@ public partial class MainWindow : Window
         Canvas.Children.Clear();
         Canvas.Height = height * pixelSize;
         Canvas.Width = width * pixelSize;
+
+
         image = new int[height, width];
         
         for (int row = 0, lineIndex = 1; row < height && lineIndex < lines.Length; row++, lineIndex++)
@@ -90,12 +95,12 @@ public partial class MainWindow : Window
             for (int col = 0; col < width; col++)
             {
                 image[row, col] = line[col] == '1' ? 1 : 0;
-                Drawing(row, col);
             }
         }
+        ReDraw();
     }
 
-    private void Drawing(int x, int y)
+    private void DrawPixel(int x, int y)
     {
         var pixel = new Avalonia.Controls.Shapes.Rectangle()
         {
@@ -122,8 +127,10 @@ public partial class MainWindow : Window
         if (x >= 0 && x < height && y >= 0 && y < width)
         {
             image[x, y] = image[x, y] == 1 ? 0 : 1;
-            Drawing(x, y);
+            DrawPixel(x, y);
         }
+        
+        
     }
     
     private void ChangeColor(object? sender, SelectionChangedEventArgs e)
@@ -160,5 +167,22 @@ public partial class MainWindow : Window
             }
         }
     }
+
+    private void OnSizeChanged(object sender, SizeChangedEventArgs e) {
+        TB1.Text = $"{this.Width} {this.Height}";
+        UpdatePixelSize();
+        ReDraw();    
+    }
+
+    private void UpdatePixelSize() {
+        int maxPixelYSize = (int) (this.Height - 140) / height;
+        int maxPixelXSize = (int) (this.Width - 20) / width;
+        pixelSize = Math.Min(maxPixelXSize, maxPixelYSize);
+    }
+    private void UpdateCanvasSize() {
+        Canvas.Width = width * pixelSize;
+        Canvas.Height = height * pixelSize;
+    }
+
 }
 
