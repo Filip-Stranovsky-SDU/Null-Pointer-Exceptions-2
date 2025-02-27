@@ -130,7 +130,7 @@ public partial class MainWindow : Window
     {
         if (ColorComboBox.SelectedItem is ComboBoxItem selectedItem)
         {
-            string selectedColor = selectedItem.Content.ToString();
+            string selectedColor = selectedItem.Content!.ToString()!;
             switch (selectedColor)
             {
                 case "Black":
@@ -148,7 +148,7 @@ public partial class MainWindow : Window
                 case "Yellow":
                     color = Brushes.Yellow;
                     break;
-                case "Orange":
+                case "Purple":
                     color = Brushes.Purple;
                     break;
                 case "Rubber":
