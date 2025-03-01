@@ -6,7 +6,8 @@
         Width="420" Height="650"
         x:Class="AvaloniaApplication1.MainWindow"
         Title="Image Editor"
-        SizeChanged="OnSizeChanged">
+        SizeChanged="OnSizeChanged"
+        xmlns:local="clr-namespace:AvaloniaApplication1">
     <Grid RowDefinitions="Auto, *, Auto">
         <!--Title-->
         <Grid Grid.Row="0" Background="Gray" Height="50"  ColumnDefinitions="Auto, *, Auto">
@@ -29,8 +30,8 @@
         
         <!--main-->
         <Grid Grid.Row="1">
-            <Canvas x:Name="Canvas" Background="White" x:Class="AvaloniaApplication1.MyCanvas"
-                    PointerPressed="Press"/>
+            <local:MyCanvas x:Name="Canvas"/>
+
         </Grid>
         
         <!--bottoms-->
