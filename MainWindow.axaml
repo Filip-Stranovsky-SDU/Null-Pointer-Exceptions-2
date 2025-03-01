@@ -29,7 +29,7 @@
         
         <!--main-->
         <Grid Grid.Row="1">
-            <Canvas x:Name="Canvas" Background="White"
+            <Canvas x:Name="Canvas" Background="White" x:Class="AvaloniaApplication1.MyCanvas"
                     PointerPressed="Press"/>
         </Grid>
         
