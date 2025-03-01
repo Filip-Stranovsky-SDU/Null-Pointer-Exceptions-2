@@ -17,9 +17,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        
-        
-        
 
     }
     
@@ -40,6 +37,8 @@ public partial class MainWindow : Window
 
     public void loadFile(string path)
     {
+        int width;
+        int height;
         string[] lines = File.ReadAllLines(path);
         if (lines.Length < 2)
         {
@@ -56,12 +55,7 @@ public partial class MainWindow : Window
             throw new Exception("Invalid values");
         }
         
-        Canvas.Children.Clear();
-        Canvas.Height = height * pixelSize;
-        Canvas.Width = width * pixelSize;
-
-
-        image = new int[height, width];
+        int[,] image = new int[height, width];
         
         for (int row = 0, lineIndex = 1; row < height && lineIndex < lines.Length; row++, lineIndex++)
         {
@@ -71,15 +65,29 @@ public partial class MainWindow : Window
             for (int col = 0; col < width; col++)
             {
                 image[row, col] = line[col] == '1' ? 1 : 0;
+                int.TryParse($"line[col]",
+                System.Globalization.NumberStyles.HexNumber,
+                null,
+                out image[row, col]);
             }
         }
-        ReDraw();
+
+        Canvas.NewImage(image, width, height);
     }
 
     
     private void Close(object? sender, RoutedEventArgs e)
     {
         Environment.Exit(0);
+    }
+    private void FlipH(object? sender, RoutedEventArgs e)
+    {
+        Canvas.FlipHorizontal();
+    }
+    
+    private void FlipV(object? sender, RoutedEventArgs e)
+    {
+        Canvas.FlipVertical();
     }
     
     
@@ -89,39 +97,14 @@ public partial class MainWindow : Window
         if (ColorComboBox.SelectedItem is ComboBoxItem selectedItem)
         {
             string selectedColor = selectedItem.Content!.ToString()!;
-            switch (selectedColor)
-            {
-                case "Black":
-                    color = Brushes.Black;
-                    break;
-                case "Red":
-                    color = Brushes.Red;
-                    break;
-                case "Green":
-                    color = Brushes.Green;
-                    break;
-                case "Blue":
-                    color = Brushes.Blue;
-                    break;
-                case "Yellow":
-                    color = Brushes.Yellow;
-                    break;
-                case "Purple":
-                    color = Brushes.Purple;
-                    break;
-                case "Rubber":
-                    color = Brushes.White;
-                    break;
-                default:
-                    color = Brushes.Black;
-                    break;
-            }
+            Canvas.UpdateColor(selectedColor);
+            
         }
     }
 
     private void OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        TB1.Text = $"{this.Width} {this.Height}";
+        // TB1.Text = $"{this.Width} {this.Height}";
         Canvas.ChangeSize(this.Width, this.Height);
         
     }
