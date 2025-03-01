@@ -5,9 +5,11 @@ using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
+using Avalonia.Dialogs;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Platform.Storage;
 
 namespace AvaloniaApplication1;
 
@@ -35,7 +37,6 @@ public partial class MainWindow : Window
     
     private void ReDraw()
     {
-        Canvas.Children.Clear();
         UpdateCanvasSize();
         
         for (int i = 0; i < height; i++)
@@ -53,51 +54,39 @@ public partial class MainWindow : Window
         var load = new OpenFileDialog
         {
             Title = "Select a file",
-            AllowMultiple = false
+            AllowMultiple = false,
+            Filters = [new FileDialogFilter { Extensions = ["b2img.txt"] }]
         };
         var result = await load.ShowAsync(this);
         if (result?.Length > 0)
         {
-            loadFile(result[0]);
+            FileDTO file = new(result[0], image, width, height);
+            FileHandler.LoadFile(file);
+            image = file.Image;
+            width = file.Width;
+            height = file.Height;
+            ReDraw();
         }
     }
 
-    public void loadFile(string path)
+    private async void Save(object sender, RoutedEventArgs args)
     {
-        string[] lines = File.ReadAllLines(path);
-        if (lines.Length < 2)
-        {
-            throw new Exception("File doesn't include enough information");
-        }
-        string[] size = lines[0].Split(' ');
-        if (size.Length < 2)
-        {
-            throw new Exception("Missing height or width");
-        }
-        
-        if (!int.TryParse(size[0], out width) || !int.TryParse(size[1], out height) || width < 1 || height < 1)
-        {
-            throw new Exception("Invalid values");
-        }
-        
-        Canvas.Children.Clear();
-        Canvas.Height = height * pixelSize;
-        Canvas.Width = width * pixelSize;
+        var topLevel = TopLevel.GetTopLevel(this) ?? throw new Exception("TopLevel not found");
 
-
-        image = new int[height, width];
-        
-        for (int row = 0, lineIndex = 1; row < height && lineIndex < lines.Length; row++, lineIndex++)
+        var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            string line = lines[lineIndex].Replace(" ", ""); 
-            if (line.Length != width) continue; 
+            Title = "Save Text File",
+            FileTypeChoices = [new FilePickerFileType("") { Patterns = ["*.b2img.txt"] }]
+        });
 
-            for (int col = 0; col < width; col++)
-            {
-                image[row, col] = line[col] == '1' ? 1 : 0;
-            }
+        if (file is not null)
+        {
+            FileDTO fileContent = new(image, width, height);
+
+            await using var stream = await file.OpenWriteAsync();
+            using var streamWriter = new StreamWriter(stream);
+            await streamWriter.WriteLineAsync(FileHandler.SaveFile(fileContent));
         }
-        ReDraw();
     }
 
     private void DrawPixel(int x, int y)
@@ -180,6 +169,7 @@ public partial class MainWindow : Window
         pixelSize = Math.Min(maxPixelXSize, maxPixelYSize);
     }
     private void UpdateCanvasSize() {
+        Canvas.Children.Clear();
         Canvas.Width = width * pixelSize;
         Canvas.Height = height * pixelSize;
     }

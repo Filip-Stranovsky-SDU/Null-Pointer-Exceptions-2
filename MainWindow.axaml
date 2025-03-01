@@ -41,7 +41,7 @@
                 </Button>
             </Grid>
             <Grid Grid.Column="1" Width="70">
-                <Button Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <Button Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Save">
                     <Label> Save </Label>
                 </Button>
             </Grid>
