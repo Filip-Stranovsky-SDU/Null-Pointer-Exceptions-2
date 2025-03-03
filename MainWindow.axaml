@@ -6,7 +6,8 @@
         Width="420" Height="650"
         x:Class="AvaloniaApplication1.MainWindow"
         Title="Image Editor"
-        SizeChanged="OnSizeChanged">
+        SizeChanged="OnSizeChanged"
+        xmlns:local="clr-namespace:AvaloniaApplication1">
     <Grid RowDefinitions="Auto, *, Auto">
         <!--Title-->
         <Grid Grid.Row="0" Background="Gray" Height="50"  ColumnDefinitions="Auto, *, Auto">
@@ -29,12 +30,12 @@
         
         <!--main-->
         <Grid Grid.Row="1">
-            <Canvas x:Name="Canvas" Background="White"
-                    PointerPressed="Press"/>
+            <local:MyCanvas x:Name="Canvas"/>
+
         </Grid>
         
         <!--bottoms-->
-        <Grid Grid.Row="2" Height="70" Background="Bisque" ColumnDefinitions="Auto, Auto, auto">
+        <Grid Grid.Row="2" Height="70" Background="Bisque" ColumnDefinitions="Auto, Auto, Auto, Auto">
             <Grid Grid.Column="0" Width="70">
                 <Button Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Load">
                     <Label>Load</Label>
@@ -45,11 +46,19 @@
                     <Label> Save </Label>
                 </Button>
             </Grid>
-            <Grid Grid.Column="2" Width="140">
-                  <TextBox x:Name="TB1" Height="20" AcceptsReturn="False" TextWrapping="Wrap"/>
 
+            <Grid Grid.Column="2" Width="70">
+                <Button Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Click="FlipV">
+                    <Label> FlipV </Label>
+                </Button>
             </Grid>
-            <Grid Grid.Column="2">
+
+            <Grid Grid.Column="3" Width="70">
+                <Button Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Click="FlipH">
+                    <Label> FlipH </Label>
+                </Button>
+            </Grid>
+            <Grid Grid.Column="4">
                 
             </Grid>
             

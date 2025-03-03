@@ -22,7 +22,11 @@ namespace AvaloniaApplication1
                 throw new Exception("Missing height or width");
             }
 
-            if (!int.TryParse(size[0], out int height) || !int.TryParse(size[1], out int width) || file.Width < 1 || file.Height < 1)
+            if (!int.TryParse(size[0], out int height) || !int.TryParse(size[1], out int width))
+            {
+                throw new Exception("Invalid values");
+            }
+            if ( width < 1 || height < 1) 
             {
                 throw new Exception("Invalid values");
             }
