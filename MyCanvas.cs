@@ -69,13 +69,13 @@ public class MyCanvas : Canvas
         
     }
 
-
     private void UpdatePixelSize(double width, double height)
     {
         int maxPixelYSize = (int) (height - 140) / imageHeight;
         int maxPixelXSize = (int) (width - 20) / imageWidth;
         pixelSize = Math.Min(maxPixelXSize, maxPixelYSize);
     }
+
     private void UpdateCanvasSize()
     {
         Width = imageWidth * pixelSize;
@@ -88,6 +88,7 @@ public class MyCanvas : Canvas
         UpdateCanvasSize();
         ReDraw();
     }
+
     public void FlipHorizontal()
     {   
         
@@ -102,6 +103,7 @@ public class MyCanvas : Canvas
         }
         ReDraw();
     }
+    
     public void FlipVertical()
     {
         for(int x = 0; x<imageWidth; x++)
