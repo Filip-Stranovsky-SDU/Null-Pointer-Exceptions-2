@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Controls.Shapes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -35,12 +36,17 @@ namespace AvaloniaApplication1
             file.Width = width;
             file.Image = new int[file.Height, file.Width];
 
+            string line = "";
+            for (int i = 1; i < lines.Length; i++)
+            {
+                line += lines[i];
+            }
+
             for (int row = 0/*, lineIndex = 1*/; row < file.Height /*&& lineIndex < lines.Length*/; row++/*, lineIndex++*/)
             {
                 /*string line = lines[lineIndex].Replace(" ", "");
                 if (line.Length != file.Width) continue;*/
-                string line = lines[1];
-
+                
                 for (int col = 0; col < file.Width; col++)
                 {
                     file.Image[row, col] = line[row * file.Width + col] == '1' ? 1 : 0;
