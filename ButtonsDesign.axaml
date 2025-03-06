@@ -17,6 +17,7 @@
     </Style>
     
     <Style Selector="Button:pressed /template/ ContentPresenter">
-        <Setter Property="Background" Value="Black"></Setter>
+        <Setter Property="Background" Value="DarkBlue"></Setter>
+        <Setter Property="Foreground" Value="Aqua"></Setter>
     </Style>
 </Styles>

@@ -53,7 +53,7 @@ public partial class MainWindow : Window
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
             Title = "Save Text File",
-            FileTypeChoices = [new FilePickerFileType("") { Patterns = ["*.b2img.txt"] }]
+            FileTypeChoices = [new FilePickerFileType(" ") { Patterns = ["*.b2img.txt"] }]
         });
 
         if (file is not null)
