@@ -19,7 +19,6 @@
             <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock FontSize="30" FontStyle="Italic" FontWeight="Bold" Foreground="CornflowerBlue"> Image Editor</TextBlock>
             </StackPanel>
-            <Image Grid.Column="2" Source="{SvgImage /Assets/Icons/Palette.svg}" Height="20" Width="20"></Image>
             <ComboBox Grid.Column="2" x:Name="ColorComboBox" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="ChangeColor" Margin="5">
                 <ComboBoxItem Background="White" Content="White" Foreground="Black"/>
                 <ComboBoxItem Background="Black" Content="Black"/>
