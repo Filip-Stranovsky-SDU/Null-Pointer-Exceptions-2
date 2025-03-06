@@ -11,7 +11,7 @@
     <Grid RowDefinitions="Auto, *, Auto">
         <!--Title-->
         <Grid Grid.Row="0" Background="{DynamicResource DefaultGradient}" Height="50"  ColumnDefinitions="Auto, *, Auto">
-            <Button Grid.Column="0" Click="Close" Margin="5" Background="#111214">
+            <Button Grid.Column="0" Click="Close" Margin="5">
                 <StackPanel>
                     <Image Source="{SvgImage /Assets/Icons/Exit.svg}" Height="30" Width="40"></Image>
                 </StackPanel>
