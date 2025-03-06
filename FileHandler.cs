@@ -59,7 +59,7 @@ namespace AvaloniaApplication1
             string content = $"{file.Height} {file.Width}\n";
             foreach(int n in file.Image)
             {
-                content = content.Insert(content.Length,n.ToString());
+                content = content.Insert(content.Length,n.ToString("x"));
             }
             return content;
         }

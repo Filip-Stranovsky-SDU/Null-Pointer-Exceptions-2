@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -7,12 +9,36 @@ using Avalonia.Media;
 namespace AvaloniaApplication1;
 public class MyCanvas : Canvas
 {
-    private IBrush? color = Brushes.Black;
+    private int brushValue = 1;
     private int[,] image;
     private int imageWidth;
     private int imageHeight;
     private int pixelSize;
 
+    protected readonly Dictionary<string, int> ColorValueTable = new(){
+        {"Black", 1},
+        {"White", 0},
+        {"Blue", 2},
+        {"Red", 3},
+        {"Green", 4},
+        {"Cyan", 5},
+        {"Yellow", 6},
+        {"Purple", 7},
+        {"Orange", 8},
+        {"Gray", 9},
+        {"Magenta", 10},
+        {"Light Gray", 11},
+        {"Light Blue", 12},
+        {"Lime", 13},
+        {"Pink", 14},
+        {"Brown", 15}
+    };
+    protected readonly List<IBrush> ValueBrushTable = new(){
+        Brushes.White, Brushes.Black, Brushes.Blue, Brushes.Red,
+        Brushes.Green, Brushes.Cyan, Brushes.Yellow, Brushes.Purple,
+        Brushes.Orange, Brushes.Gray, Brushes.Magenta, Brushes.LightGray,
+        Brushes.LightBlue, Brushes.Lime, Brushes.Pink, Brushes.Brown 
+    };
     public MyCanvas()
     {   
 
@@ -47,7 +73,7 @@ public class MyCanvas : Canvas
         {
             Width = pixelSize,
             Height = pixelSize,
-            Fill = image[x, y] == 1 ? color : Brushes.White,
+            Fill = ValueBrushTable[image[x, y]],
         };
         SetLeft(pixel, y * pixelSize);
         SetTop(pixel, x * pixelSize);
@@ -61,8 +87,9 @@ public class MyCanvas : Canvas
         int y = (int)(position.X / pixelSize);
 
         if (x >= 0 && x < imageHeight && y >= 0 && y < imageWidth)
-        {
-            image[x, y] = image[x, y] == 1 ? 0 : 1;
+        {   
+            image[x, y] = image[x, y] == brushValue ? 0 : brushValue;
+            
             DrawPixel(x, y);
         }
         
@@ -127,34 +154,12 @@ public class MyCanvas : Canvas
     }
 
     public void UpdateColor(string selectedColor)
-    {
-        switch (selectedColor)
+    {   
+        if (!ColorValueTable.ContainsKey(selectedColor))
         {
-            case "Black":
-                color = Brushes.Black;
-                break;
-            case "Red":
-                color = Brushes.Red;
-                break;
-            case "Green":
-                color = Brushes.Green;
-                break;
-            case "Blue":
-                color = Brushes.Blue;
-                break;
-            case "Yellow":
-                color = Brushes.Yellow;
-                break;
-            case "Purple":
-                color = Brushes.Purple;
-                break;
-            case "Rubber":
-                color = Brushes.White;
-                break;
-            default:
-                color = Brushes.Black;
-                break;
+            brushValue = 1;
         }
+        brushValue = ColorValueTable[selectedColor];
     }
 
     public FileDTO GetFileDTO()
