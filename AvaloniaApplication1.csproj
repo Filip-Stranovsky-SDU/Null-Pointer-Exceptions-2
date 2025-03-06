@@ -23,6 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Icons\" />
+      <Folder Include="Assets\" />
     </ItemGroup>
 </Project>
