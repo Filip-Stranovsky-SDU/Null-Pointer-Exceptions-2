@@ -1,15 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
-using Avalonia.Dialogs;
-using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Media;
 using Avalonia.Platform.Storage;
 
 namespace AvaloniaApplication1;
@@ -69,9 +62,7 @@ public partial class MainWindow : Window
         });
 
         if (file is not null)
-        {   
-
-            // FileDTO fileContent = new(image, width, height);
+        {
             FileDTO fileContent = Canvas.GetFileDTO();
             await using var stream = await file.OpenWriteAsync();
             using var streamWriter = new StreamWriter(stream);
@@ -93,8 +84,6 @@ public partial class MainWindow : Window
         Canvas.FlipVertical();
     }
     
-    
-    
     private void ChangeColor(object? sender, SelectionChangedEventArgs e)
     {
         if (ColorComboBox.SelectedItem is ComboBoxItem selectedItem)
@@ -107,12 +96,7 @@ public partial class MainWindow : Window
 
     private void OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        // TB1.Text = $"{this.Width} {this.Height}";
-        Canvas.ChangeSize(this.Width, this.Height);
-        
-    }
-
-    
+        Canvas.ChangeSize(this.Width, this.Height);    
+    }    
 
 }
-

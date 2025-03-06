@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
@@ -92,8 +90,6 @@ public class MyCanvas : Canvas
             
             DrawPixel(x, y);
         }
-        
-        
     }
 
     private void UpdatePixelSize(double width, double height)

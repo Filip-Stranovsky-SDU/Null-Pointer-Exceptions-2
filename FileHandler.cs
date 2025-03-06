@@ -1,11 +1,4 @@
-﻿using Avalonia.Controls.Shapes;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace AvaloniaApplication1
 {
@@ -42,10 +35,9 @@ namespace AvaloniaApplication1
                 line += file.Content[i];
             }
             line = line.ToLower();
-            for (int row = 0/*, lineIndex = 1*/; row < file.Height /*&& lineIndex < lines.Length*/; row++/*, lineIndex++*/)
+            for (int row = 0; row < file.Height; row++)
             {
-                /*string line = lines[lineIndex].Replace(" ", "");
-                if (line.Length != file.Width) continue;*/
+                
                 
                 for (int col = 0; col < file.Width; col++)
                 {
