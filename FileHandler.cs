@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls.Shapes;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -40,7 +41,7 @@ namespace AvaloniaApplication1
             {
                 line += file.Content[i];
             }
-
+            line = line.ToLower();
             for (int row = 0/*, lineIndex = 1*/; row < file.Height /*&& lineIndex < lines.Length*/; row++/*, lineIndex++*/)
             {
                 /*string line = lines[lineIndex].Replace(" ", "");
@@ -48,7 +49,18 @@ namespace AvaloniaApplication1
                 
                 for (int col = 0; col < file.Width; col++)
                 {
-                    file.Image[row, col] = line[row * file.Width + col] == '1' ? 1 : 0;
+                    
+                    char c = line[row * file.Width + col];
+                    int i = 1;
+                    if(c>='0' && c<='9')
+                    {
+                        i = (int) (c-'0');
+                    }
+                    if(c>='a' && c<= 'f')
+                    {
+                        i = (int) (c-'a') + 10;
+                    }
+                    file.Image[row, col] = i;
                 }
             }
         }
