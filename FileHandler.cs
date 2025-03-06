@@ -12,7 +12,7 @@ namespace AvaloniaApplication1
     {
         public static void LoadFile(FileDTO file)
         {
-            string[] lines = File.ReadAllLines(file.Path);
+            string[] lines = file.Content.Split("\n");
             if (lines.Length < 2)
             {
                 throw new Exception("File doesn't include enough information");
