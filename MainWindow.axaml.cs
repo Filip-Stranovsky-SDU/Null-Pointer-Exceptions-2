@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -25,19 +26,30 @@ public partial class MainWindow : Window
     
     private async void Load(object? sender, RoutedEventArgs e)
     {
-        var load = new OpenFileDialog
+        var topLevel = TopLevel.GetTopLevel(this) ?? throw new Exception("TopLevel not found");
+
+        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
             Title = "Select a file",
             AllowMultiple = false,
-            Filters = [new FileDialogFilter { Extensions = ["b2img.txt"] }]
-        };
-        var result = await load.ShowAsync(this);
-        if (result?.Length > 0)
-        {   
+            FileTypeFilter = [new FilePickerFileType(" ") { Patterns = ["*.b2img.txt"] }]
+        });
+
+        if (files.Count >= 1)
+        {
+            await using var stream = await files[0].OpenReadAsync();
+            using var streamReader = new StreamReader(stream);
+
+            List<string> lines = [];
+            while (streamReader.Peek() != -1)
+            {
+                lines.Add(streamReader.ReadLine());
+            }
+
             int[,] image = {{}};
             int width = 1;
             int height = 1;
-            FileDTO file = new(result[0], image, width, height);
+            FileDTO file = new(lines.ToArray(), image, width, height);
             FileHandler.LoadFile(file);
             image = file.Image;
             width = file.Width;

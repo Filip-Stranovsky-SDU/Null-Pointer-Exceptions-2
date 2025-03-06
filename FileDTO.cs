@@ -8,13 +8,13 @@ namespace AvaloniaApplication1
 {
     public class FileDTO
     {
-        public string Path { get; set; } = "";
+        public string[] Content { get; set; } = [];
         public int[,] Image { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public FileDTO(string path, int[,] image, int width, int height)
+        public FileDTO(string[] content, int[,] image, int width, int height)
         {
-            Path = path;
+            Content = content;
             Image = image;
             Width = width;
             Height = height;
