@@ -11,8 +11,8 @@
              
     <Application.Resources>
         <LinearGradientBrush x:Key="DefaultGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
-            <GradientStop Offset="0" Color="#111214"></GradientStop>
-            <GradientStop Offset="1" Color="#151E3E"></GradientStop>
+            <GradientStop Offset="0" Color="MidnightBlue"></GradientStop>
+            <GradientStop Offset="1" Color="MediumBlue"></GradientStop>
         </LinearGradientBrush>
     </Application.Resources>   
              

@@ -11,7 +11,7 @@
     <Grid RowDefinitions="Auto, *, Auto">
         <!--Title-->
         <Grid Grid.Row="0" Background="{DynamicResource DefaultGradient}" Height="50"  ColumnDefinitions="Auto, *, Auto">
-            <Button Grid.Column="0" Click="Close" Margin="5" Background="#111214">
+            <Button Grid.Column="0" Click="Close" Margin="5">
                 <StackPanel>
                     <Image Source="{SvgImage /Users/matus/RiderProjects/Image/Assets/Icons/Exit.svg}" Height="30" Width="40"></Image>
                 </StackPanel>
@@ -20,7 +20,7 @@
                 <TextBlock FontSize="30" FontStyle="Italic" FontWeight="Bold" Foreground="CornflowerBlue"> Image Editor</TextBlock>
             </StackPanel>
             <Image Grid.Column="2" Source="{SvgImage /Users/matus/RiderProjects/Image/Assets/Icons/Palette.svg}" Height="20" Width="20"></Image>
-            <ComboBox Grid.Column="2" x:Name="ColorComboBox" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="ChangeColor" Margin="5">
+            <ComboBox Grid.Column="2" x:Name="ColorComboBox" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="ChangeColor" Margin="5" >
                 <ComboBoxItem Background="White" Content="Rubber"/>
                 <ComboBoxItem Background="Black" Content="Black"/>
                 <ComboBoxItem Background="Red" Content="Red"/>
