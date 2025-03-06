@@ -12,12 +12,11 @@ namespace AvaloniaApplication1
     {
         public static void LoadFile(FileDTO file)
         {
-            string[] lines = file.Content.Split("\n");
-            if (lines.Length < 2)
+            if (file.Content.Length < 2)
             {
                 throw new Exception("File doesn't include enough information");
             }
-            string[] size = lines[0].Split(' ');
+            string[] size = file.Content[0].Split(' ');
             if (size.Length < 2)
             {
                 throw new Exception("Missing height or width");
@@ -37,9 +36,9 @@ namespace AvaloniaApplication1
             file.Image = new int[file.Height, file.Width];
 
             string line = "";
-            for (int i = 1; i < lines.Length; i++)
+            for (int i = 1; i < file.Content.Length; i++)
             {
-                line += lines[i];
+                line += file.Content[i];
             }
 
             for (int row = 0/*, lineIndex = 1*/; row < file.Height /*&& lineIndex < lines.Length*/; row++/*, lineIndex++*/)
