@@ -15,9 +15,21 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <SplitView DisplayMode="CompactInline" IsPaneOpen="{Binding IsPaneOpen}" OpenPaneLength="{Binding PaneWidth}" CompactPaneLength="40" >
+    <SplitView DisplayMode="CompactInline" IsPaneOpen="{Binding IsPaneOpen}" OpenPaneLength="{Binding PaneWidth}" CompactPaneLength="50" >
         <SplitView.Pane>
-            <Button Content="sdff" Command="{Binding PaneCommand}"></Button>
+            <Border Background="#CFCFCF" BorderBrush="#5a0000" BorderThickness="0 0 2 0">
+                <StackPanel Spacing="15" Margin="5 0 0 0">
+                    <Button HorizontalAlignment="Right" Command="{Binding PaneCommand}">
+                        <StackPanel>
+                            <Image Source="/Assets/Menu.png" Width="24" Height="24"></Image>
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding SubjectsStudentsCommand}" Content="My Subjects" IsVisible="{Binding IsStudent}"></Button>
+                    <Button Command="{Binding EnrollStudentsCommand}" Content="Enroll" IsVisible="{Binding IsStudent}"></Button>
+                    <Button Command="{Binding SubjectsTeachersCommand}" Content="My Subjects" IsVisible="{Binding IsTeacher}"></Button>
+                    <Button Command="{Binding EditTeachersCommand}" Content="Edit subjects" IsVisible="{Binding IsTeacher}"></Button>
+                </StackPanel>
+            </Border>
         </SplitView.Pane>
         <SplitView.Content>
             <ContentControl Content="{Binding CurrentView}"></ContentControl>

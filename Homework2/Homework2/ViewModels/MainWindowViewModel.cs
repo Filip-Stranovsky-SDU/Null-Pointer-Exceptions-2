@@ -51,9 +51,14 @@ public class MainWindowViewModel : ViewModelBase
     public ICommand LoginViewCommand { get; }
     public ICommand StudentViewCommand { get; }
     public ICommand TeacherViewCommand { get; }
+    public ICommand EditTeachersCommand { get; }
+    public ICommand EnrollStudentsCommand { get; }
+    public ICommand SubjectsTeachersCommand { get; }
+    public ICommand SubjectsStudentsCommand { get; }
 
     public MainWindowViewModel()
     {
+        
         currentView = new LoginViewModel(this);
         PaneWidth = 0;
         IsPaneOpen = true;
@@ -61,6 +66,8 @@ public class MainWindowViewModel : ViewModelBase
         StudentViewCommand = new CommandHandler(() => ChangeView(new StudentViewModel()));
         TeacherViewCommand = new CommandHandler(() => ChangeView(new TeacherViewModel()));
         LoginViewCommand = new CommandHandler(() => ChangeView(new LoginViewModel(this)));
+        EditTeachersCommand = new CommandHandler(() => ChangeView(new EditViewModel()));
+        EnrollStudentsCommand = new CommandHandler(() => ChangeView(new EnrollViewModel()));
         
         Teachers = new List<Teacher>
         {
@@ -74,21 +81,10 @@ public class MainWindowViewModel : ViewModelBase
             new Student(2, "Bongo", "student2", "password2")
         };
     }
-
+    
     public void ChangeView(ReactiveObject newView)
     {
-        if (newView is StudentViewModel)
-        {
-            IsStudent = true;
-            PaneWidth = 100;
-            Dispatcher.UIThread.Post(() => CurrentView = newView);
-        }
-        else if (newView is TeacherViewModel)
-        {
-            IsTeacher = true;
-            PaneWidth = 100;
-            Dispatcher.UIThread.Post(() => CurrentView = newView);
-        }
+        Dispatcher.UIThread.Post(() => CurrentView = newView);
     }
     
     private void OpenClosePane()
