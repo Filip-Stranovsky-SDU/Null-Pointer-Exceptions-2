@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="clr-namespace:Homework2.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Homework2.Views.LoginView"
+             x:DataType="viewModel:LoginViewModel">
+    
+    <StackPanel 
+        Background="White" 
+        Spacing="20">
+        
+        <Image 
+            Source="/Assets/Text.png" Width="300"
+            Margin="0 180 0 0 "> 
+        </Image>
+        
+        <TextBox 
+            Watermark="Username" 
+            Width="200" 
+            Margin="0 0 0 0"
+            Text="{Binding Username}">
+            
+        </TextBox>
+        
+        <Grid>
+            <TextBox 
+                Classes="Login"
+                Watermark="Password" 
+                PasswordChar="*" 
+                RevealPassword="{Binding RevealPassword}" 
+                Width="200"
+                Text = "{Binding Password}">
+                
+                
+            </TextBox>
+            <CheckBox 
+                Classes="Checkbox"
+                Margin="680 0 0 0"
+                Command="{Binding RevealPasswordCommand}" 
+                Content="Show Password" 
+                >
+                 
+            </CheckBox>
+        </Grid>
+        
+        <Button 
+            Background="#CFCFCF" 
+            Content="Login" 
+            HorizontalAlignment="Center"
+            Command="{Binding CheckTheLoginCommand}">
+            
+        </Button>
+        
+        <TextBlock Text="Wrong Password, please try again." Foreground="Red" HorizontalAlignment="Center" IsVisible="{Binding WrongLogin}"></TextBlock>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,35 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+            <CheckBox Classes="Checkbox" Content="Show Password">
+                
+            </CheckBox>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+    <Style Selector="CheckBox.Checkbox">
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="CornerRadius" Value="7"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+    </Style>
+    
+    <Style Selector="CheckBox.Checkbox:pointerover /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="CornerRadius" Value="7"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        
+    </Style>
+    
+    <Style Selector="CheckBox.Checkbox /template/ Border#NormalRectangle">
+        <Setter Property="BorderBrush" Value="Black"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
+    </Style>
+    
+    <Style Selector="CheckBox.Checkbox:pointerover /template/ Border#NormalRectangle">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="2"/>
+    </Style>
+</Styles>
