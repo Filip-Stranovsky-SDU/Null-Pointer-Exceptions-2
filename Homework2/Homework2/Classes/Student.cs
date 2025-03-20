@@ -1,26 +1,24 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Homework2.Classes;
 
-public class Student
+public class Student : User
 {
-    public int Id { get; private set; }
-    public string Name { get; private set; }
-    private string username;
-    private string password;
     public List<int> EnrolledSubjects { get; set; }
-
-    public Student(int id, string name, string username, string password)
+    
+    [JsonConstructor]
+    public Student(List<int> EnrolledSubjects,
+                    int Id,
+                    string Name,
+                    string username,
+                    string password)
     {
-        Id = id;
-        Name = name;
+        this.Id = Id;
+        this.Name = Name;
         this.username = username;
         this.password = password;
-        
+        this.EnrolledSubjects = EnrolledSubjects ?? new List<int>();
     }
 
-    public bool LoginCheck(string username, string password)
-    {
-        return this.username == username && this.password == password;
-    }
 }

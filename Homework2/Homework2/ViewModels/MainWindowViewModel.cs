@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reactive;
+using System.Text.Json;
 using System.Windows.Input;
 using Avalonia.Threading;
-using HeatOptimiser.Classes;
+using Homework2.Classes;
 using ReactiveUI;
 
 namespace Homework2.ViewModels;
@@ -44,9 +47,6 @@ public class MainWindowViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref isTeacher, value);
     }
     
-    public List<Teacher> Teachers { get; set; }
-    public List<Student> Students { get; set; }
-    
     public ICommand PaneCommand { get; }
     public ICommand LoginViewCommand { get; }
     public ICommand StudentViewCommand { get; }
@@ -68,18 +68,7 @@ public class MainWindowViewModel : ViewModelBase
         LoginViewCommand = new CommandHandler(() => ChangeView(new LoginViewModel(this)));
         EditTeachersCommand = new CommandHandler(() => ChangeView(new EditViewModel()));
         EnrollStudentsCommand = new CommandHandler(() => ChangeView(new EnrollViewModel()));
-        
-        Teachers = new List<Teacher>
-        {
-            new Teacher(1, "raklo", "teacher1", "password1"),
-            new Teacher(2, "fako", "teacher2", "password2")
-        };
-
-        Students = new List<Student>
-        {
-            new Student(1, "Hrusky", "student1", "password1"),
-            new Student(2, "Bongo", "student2", "password2")
-        };
+    
     }
     
     public void ChangeView(ReactiveObject newView)

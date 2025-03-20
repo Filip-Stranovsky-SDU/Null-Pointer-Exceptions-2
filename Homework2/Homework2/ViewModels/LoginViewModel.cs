@@ -1,7 +1,7 @@
 using System;
 using System.Reactive;
 using System.Windows.Input;
-using HeatOptimiser.Classes;
+using Homework2.Classes;
 using ReactiveUI;
 
 namespace Homework2.ViewModels;
@@ -57,28 +57,24 @@ public class LoginViewModel : ViewModelBase
 
     public void CheckTheLogin()
     {
-        foreach (var student in mainWindowViewModel.Students)
-        {
-            if (student.LoginCheck(Username, Password))
-            {
-                mainWindowViewModel.ChangeView(new StudentViewModel());
-                mainWindowViewModel.IsStudent = true;
-                mainWindowViewModel.PaneWidth = 150;
-                return;
-            }
-        }
+        User? user = LoginHandler.LoginHandle(Username, Password);
 
-        foreach (var teacher in mainWindowViewModel.Teachers)
+        if (user == null)
         {
-            if (teacher.LoginCheck(Username, Password))
-            {
-                mainWindowViewModel.ChangeView(new TeacherViewModel());
-                mainWindowViewModel.IsTeacher = true;
-                mainWindowViewModel.PaneWidth = 150;
-                return;
-            }
+            WrongLogin = true;
+            return;
         }
-        
-        WrongLogin = true;
+        ViewModelBase vmb;
+        if ( user.GetType() == typeof(Student) )
+        {
+            vmb = new StudentViewModel();
+        } else
+        {
+            vmb = new StudentViewModel();
+        }
+        mainWindowViewModel.ChangeView(vmb);
+        mainWindowViewModel.IsStudent = true;
+        mainWindowViewModel.PaneWidth = 150;
+        return;
     }
 }

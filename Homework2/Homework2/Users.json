@@ -1,0 +1,34 @@
+{
+    "teacher1": {
+      "$type": "teacher",
+      "EnrolledSubjects": [],
+      "Id": 1,
+      "Name": "raklo",
+      "username": "teacher1",
+      "password": "eE7Ih2GdmV8f05PMjOiGiw==.yvwD1lHpj9jYrQ4IZQiCQ356osKIcRU7AaZ/cWqDS\u002BE="
+    },
+    "teacher2": {
+      "$type": "teacher",
+      "EnrolledSubjects": [],
+      "Id": 2,
+      "Name": "fako",
+      "username": "teacher2",
+      "password": "9uOiNdEgR\u002BmyhiJ4d4l56g==.xeA\u002BKAP5wkknRgVjLaN9apyJbT8wydvDlzOdUoIoVWs="
+    },
+    "student1": {
+      "$type": "student",
+      "EnrolledSubjects": [],
+      "Id": 1,
+      "Name": "Hrusky",
+      "username": "student1",
+      "password": "cRohDeCRlQgbR7wA\u002BeDKlA==.DXTVtTuEjY5N4nxAanalzljwpzcQP55WkS4GzJ708lY="
+    },
+    "student2": {
+      "$type": "student",
+      "EnrolledSubjects": [],
+      "Id": 2,
+      "Name": "Bongo",
+      "username": "student2",
+      "password": "wUeCpvCcluiEmRpdsNwwsw==.PhzJO1\u002BxPxjQI7h5izH1G1W9lwnidkHD32uWLwt2vT8="
+    }
+  }
