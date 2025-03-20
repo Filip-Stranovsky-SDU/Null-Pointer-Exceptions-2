@@ -1,7 +1,7 @@
 using System;
 using System.Reactive;
 using System.Windows.Input;
-using HeatOptimiser.Classes;
+using Homework2.Classes;
 using ReactiveUI;
 
 namespace Homework2.ViewModels;
