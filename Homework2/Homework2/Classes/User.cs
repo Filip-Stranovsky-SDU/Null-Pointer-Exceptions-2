@@ -10,13 +10,13 @@ public abstract class User
 {
     public int Id { get; protected set; }
     public string Name { get; protected set; } = null!;
-    protected string username = null!;
-    protected string password = null!;
+    public string Username {get; set;} = null!;
+    public string Password {get; set;} = null!;
 
     public bool LoginCheck(string username, string password)
     {
-        return this.username == username
-        && PasswordHasher.VerifyPassword(password, this.password);
+        return this.Username == username
+        && PasswordHasher.VerifyPassword(password, this.Password);
 
     }
     

@@ -5,20 +5,7 @@ namespace Homework2.Classes;
 
 public class Student : User
 {
-    public List<int> EnrolledSubjects { get; set; }
+    public List<int> EnrolledSubjects { get; set; } = null!;
     
-    [JsonConstructor]
-    public Student(List<int> EnrolledSubjects,
-                    int Id,
-                    string Name,
-                    string username,
-                    string password)
-    {
-        this.Id = Id;
-        this.Name = Name;
-        this.username = username;
-        this.password = password;
-        this.EnrolledSubjects = EnrolledSubjects ?? new List<int>();
-    }
 
 }

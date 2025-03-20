@@ -13,6 +13,7 @@ public static class LoginHandler
 
     public static User? LoginHandle(string username, string password)
     {
+        if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return null;
         Dictionary<string, User> users = JsonSerializer.Deserialize<Dictionary<string, User>>(File.ReadAllText(filePath))!;
         if ( !users.ContainsKey(username)) return null;
         if ( !users[username].LoginCheck(username, password) ) return null;
