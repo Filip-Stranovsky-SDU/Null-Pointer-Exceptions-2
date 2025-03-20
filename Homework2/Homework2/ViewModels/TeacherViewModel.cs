@@ -22,7 +22,7 @@ public class TeacherViewModel : ViewModelBase
 
     public void MySubjects(User user)
     {
-        foreach (var e in CoursesHandler.GetSubjects())
+        foreach (var e in SubjectHandler.GetSubjects())
         {
             if (int.Parse(e.Value.TeacherId) == (user.Id))
             {

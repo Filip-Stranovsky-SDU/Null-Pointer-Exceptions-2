@@ -9,4 +9,13 @@ public class Subject
     public string Description { get; private set; }
     public string TeacherId { get; private set; }
     public List<int> StudentsEnrolled { get; set; }
+
+    public Subject(int id, string name, string description, string teacherId, List<int> studentsEnrolled)
+    {
+        Id = id;
+        Name = name;
+        Description = description;
+        TeacherId = teacherId;
+        StudentsEnrolled = studentsEnrolled;
+    }
 }

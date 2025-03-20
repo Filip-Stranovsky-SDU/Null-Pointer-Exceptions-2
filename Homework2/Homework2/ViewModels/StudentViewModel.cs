@@ -22,7 +22,7 @@ public class StudentViewModel : ViewModelBase
 
     public void MySubjects(User user)
     {
-        foreach (var e in CoursesHandler.GetSubjects())
+        foreach (var e in SubjectHandler.GetSubjects())
         {
             if (e.Value.StudentsEnrolled.Contains(user.Id))
             {
