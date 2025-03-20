@@ -62,6 +62,9 @@ public class LoginViewModel : ViewModelBase
             if (student.LoginCheck(Username, Password))
             {
                 mainWindowViewModel.ChangeView(new StudentViewModel());
+                mainWindowViewModel.IsStudent = true;
+                mainWindowViewModel.PaneWidth = 150;
+                return;
             }
         }
 
@@ -70,6 +73,9 @@ public class LoginViewModel : ViewModelBase
             if (teacher.LoginCheck(Username, Password))
             {
                 mainWindowViewModel.ChangeView(new TeacherViewModel());
+                mainWindowViewModel.IsTeacher = true;
+                mainWindowViewModel.PaneWidth = 150;
+                return;
             }
         }
         

@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Homework2.Views;
 
-public partial class StudentView : UserControl
+public partial class EnrollView : UserControl
 {
-    public StudentView()
+    public EnrollView()
     {
         InitializeComponent();
     }
