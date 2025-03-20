@@ -24,9 +24,9 @@
                             <Image Source="/Assets/Menu.png" Width="24" Height="24"></Image>
                         </StackPanel>
                     </Button>
-                    <Button Command="{Binding SubjectsStudentsCommand}" Content="My Subjects" IsVisible="{Binding IsStudent}"></Button>
+                    <Button Command="{Binding StudentViewCommand}" Content="My Subjects" IsVisible="{Binding IsStudent}"></Button>
                     <Button Command="{Binding EnrollStudentsCommand}" Content="Enroll" IsVisible="{Binding IsStudent}"></Button>
-                    <Button Command="{Binding SubjectsTeachersCommand}" Content="My Subjects" IsVisible="{Binding IsTeacher}"></Button>
+                    <Button Command="{Binding TeacherViewCommand}" Content="My Subjects" IsVisible="{Binding IsTeacher}"></Button>
                     <Button Command="{Binding EditTeachersCommand}" Content="Edit subjects" IsVisible="{Binding IsTeacher}"></Button>
                 </StackPanel>
             </Border>

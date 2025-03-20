@@ -46,6 +46,13 @@ public class MainWindowViewModel : ViewModelBase
         get => isTeacher;
         set => this.RaiseAndSetIfChanged(ref isTeacher, value);
     }
+
+    private User user;
+    public User User
+    {
+        get => user;
+        set => this.RaiseAndSetIfChanged(ref user, value);
+    }
     
     public ICommand PaneCommand { get; }
     public ICommand LoginViewCommand { get; }
@@ -53,18 +60,15 @@ public class MainWindowViewModel : ViewModelBase
     public ICommand TeacherViewCommand { get; }
     public ICommand EditTeachersCommand { get; }
     public ICommand EnrollStudentsCommand { get; }
-    public ICommand SubjectsTeachersCommand { get; }
-    public ICommand SubjectsStudentsCommand { get; }
 
     public MainWindowViewModel()
     {
-        
         currentView = new LoginViewModel(this);
         PaneWidth = 0;
         IsPaneOpen = true;
         PaneCommand = new CommandHandler(OpenClosePane);
-        StudentViewCommand = new CommandHandler(() => ChangeView(new StudentViewModel()));
-        TeacherViewCommand = new CommandHandler(() => ChangeView(new TeacherViewModel()));
+        StudentViewCommand = new CommandHandler(() => ChangeView(new StudentViewModel(User)));
+        TeacherViewCommand = new CommandHandler(() => ChangeView(new TeacherViewModel(User)));
         LoginViewCommand = new CommandHandler(() => ChangeView(new LoginViewModel(this)));
         EditTeachersCommand = new CommandHandler(() => ChangeView(new EditViewModel()));
         EnrollStudentsCommand = new CommandHandler(() => ChangeView(new EnrollViewModel()));

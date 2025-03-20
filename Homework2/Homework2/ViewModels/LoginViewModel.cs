@@ -67,13 +67,16 @@ public class LoginViewModel : ViewModelBase
         ViewModelBase vmb;
         if ( user.GetType() == typeof(Student) )
         {
-            vmb = new StudentViewModel();
+            vmb = new StudentViewModel(user);
+            mainWindowViewModel.IsStudent = true;
         } else
         {
-            vmb = new StudentViewModel();
+            vmb = new TeacherViewModel(user);
+            mainWindowViewModel.IsTeacher = true;
         }
+
+        mainWindowViewModel.User = user;
         mainWindowViewModel.ChangeView(vmb);
-        mainWindowViewModel.IsStudent = true;
         mainWindowViewModel.PaneWidth = 150;
         return;
     }
