@@ -7,7 +7,7 @@ using System.Text.Json;
 namespace Homework2.Classes;
 public static class CoursesHandler
 {
-    private const string usersPath = "/Users/matus/Desktop/HomeWork/Homework2/Homework2/Users.json";
+    private const string usersPath = "./Users.json";
     private const string subjectPath = "./Subjects.json";
 
 

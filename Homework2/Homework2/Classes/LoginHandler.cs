@@ -7,7 +7,7 @@ namespace Homework2.Classes;
 
 public static class LoginHandler
 {
-    private const string filePath = "/Users/matus/Desktop/HomeWork/Homework2/Homework2/Users.json";
+    private const string filePath = "./Users.json";
 
     //private const JsonSerializerSettings settings = new JsonSerializerSettings {PropertyNameCaseInsesitive = false};
 
