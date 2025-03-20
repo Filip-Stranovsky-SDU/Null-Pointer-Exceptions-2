@@ -2,7 +2,7 @@
 using System.Reactive;
 using System.Windows.Input;
 using Avalonia.Threading;
-using HeatOptimiser.Classes;
+using Homework2.Classes;
 using ReactiveUI;
 
 namespace Homework2.ViewModels;
