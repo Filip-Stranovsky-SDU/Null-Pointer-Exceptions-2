@@ -60,6 +60,12 @@ public static class CoursesHandler
         File.WriteAllText(usersPath, data);
     }
 
+    public static Dictionary<int, Subject> GetSubjects()
+    {
+        Dictionary<int, Subject> subjects = JsonSerializer.Deserialize<Dictionary<int, Subject>>(File.ReadAllText(subjectPath))!;
+        return subjects;
+    }
+
     
 
 
