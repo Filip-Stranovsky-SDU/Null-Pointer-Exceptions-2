@@ -3,7 +3,7 @@ using Avalonia.Threading;
 using ReactiveUI;
 using System.Windows.Input;
 
-namespace HeatOptimiser.Classes
+namespace Homework2.Classes
 {
     public class CommandHandler : ICommand
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HeatOptimiser.Classes;
+namespace Homework2.Classes;
 
 public class Student
 {

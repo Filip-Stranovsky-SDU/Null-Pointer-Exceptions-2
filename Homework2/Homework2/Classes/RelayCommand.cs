@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Input;
 
-namespace HeatOptimiser.Classes;
+namespace Homework2.Classes;
 
 public class RelayCommand : ICommand
 {
