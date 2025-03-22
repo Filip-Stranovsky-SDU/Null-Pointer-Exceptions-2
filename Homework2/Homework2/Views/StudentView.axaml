@@ -6,7 +6,21 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Homework2.Views.StudentView"
              x:DataType="viewModel:StudentViewModel">
-    <StackPanel Background="White">
-        <ListBox ItemsSource="{Binding Subjects}"></ListBox>
-    </StackPanel>
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <StackPanel Background="White" Orientation="Vertical">
+            <ListBox SelectedItem="{Binding SelectedSubject}" Background="#CFCFCF" ItemsSource="{Binding Subjects, Mode=TwoWay}" SelectionMode="Single">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Margin="5">
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Description}" FontStyle="Italic"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button HorizontalAlignment="Stretch" Height="40" Background="#CFCFCF" Margin="7" Command="{Binding DropSubjectsCommand}">
+                <Label Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center">DROP</Label>
+            </Button>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

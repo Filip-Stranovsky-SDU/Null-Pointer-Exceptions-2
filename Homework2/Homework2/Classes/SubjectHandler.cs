@@ -42,14 +42,14 @@ public static class SubjectHandler
 
     }
 
-    public static void StudentEnroll(Student student, Subject subject)
+    public static void StudentEnroll(User student, Subject subject)
     {
         ((Student) users[student.Username]).EnrolledSubjects.Add(subject.Id);
         string data = JsonSerializer.Serialize<Dictionary<string, User>>(users);
         File.WriteAllText(usersPath, data);
     }
     
-    public static void StudentDrop(Student student, Subject subject)
+    public static void StudentDrop(User student, Subject subject)
     {
         ((Student) users[student.Username]).EnrolledSubjects.Remove(subject.Id);
         string data = JsonSerializer.Serialize<Dictionary<string, User>>(users);
