@@ -3,3 +3,9 @@ This is repo for homowork apps for AOOP course in the 2nd semester of BSc in Sof
 
 ## Image Editor
 To run use `cd ImageEditor` `dotnet run`
+
+## Homework2
+Json files are stored locally at
+- C:\Users\{username}\AppData\Roaming\Homework2 for Windows
+- /Users/{username}/Library/Application Support/Homework2 for Mac
+- /home/{username}/.config/Homework2 for Linux
