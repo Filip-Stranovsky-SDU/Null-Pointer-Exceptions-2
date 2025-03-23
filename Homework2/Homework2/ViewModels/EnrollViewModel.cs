@@ -55,5 +55,7 @@ public class EnrollViewModel : ViewModelBase
         {
             SubjectHandler.StudentEnroll(loggedInUser, SelectedSubject);
         }
+        Subjects = new ObservableCollection<Subject>();
+        MySubjects();
     }
 }

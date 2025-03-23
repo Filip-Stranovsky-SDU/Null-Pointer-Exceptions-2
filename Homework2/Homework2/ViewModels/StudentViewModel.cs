@@ -33,16 +33,16 @@ public class StudentViewModel : ViewModelBase
     public StudentViewModel(User user)
     {
         Subjects = new ObservableCollection<Subject>();
-        this.MySubjects(user);
         LoggedInUser = user;
+        this.MySubjects();
         DropSubjectsCommand = new CommandHandler(DropSubject);
     }
     
-    public void MySubjects(User user)
+    public void MySubjects()
     {
         foreach (var e in SubjectHandler.GetSubjects())
         {
-            if (e.Value.StudentsEnrolled.Contains(user.Id))
+            if (e.Value.StudentsEnrolled.Contains(LoggedInUser.Id))
             {
                 Subjects.Add(e.Value);
             }
@@ -55,5 +55,7 @@ public class StudentViewModel : ViewModelBase
         {
             SubjectHandler.StudentDrop(LoggedInUser, SelectedSubject);
         }
+        Subjects = new ObservableCollection<Subject>();
+        MySubjects();
     }
 }

@@ -19,7 +19,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <Button HorizontalAlignment="Stretch" Height="40" Background="#CFCFCF" Margin="7" Command="{Binding EnrollCommand}">
-                <Label Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center">DROP</Label>
+                <Label Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center">ENROLL</Label>
             </Button>
         </StackPanel>
     </ScrollViewer>

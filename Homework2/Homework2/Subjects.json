@@ -4,20 +4,20 @@
     "Name": "Mathematics",
     "Description": "An introduction to algebra and calculus.",
     "TeacherId": "1",
-    "StudentsEnrolled": [ 2 ]
+    "StudentsEnrolled": []
   },
   "2": {
     "Id": 2,
     "Name": "Physics",
     "Description": "Fundamentals of mechanics and thermodynamics.",
     "TeacherId": "2",
-    "StudentsEnrolled": [ 1, 2 ]
+    "StudentsEnrolled": []
   },
   "3": {
     "Id": 3,
     "Name": "Computer Science",
     "Description": "Programming basics and data structures.",
     "TeacherId": "1",
-    "StudentsEnrolled": [ 1 ]
+    "StudentsEnrolled": []
   }
 }
