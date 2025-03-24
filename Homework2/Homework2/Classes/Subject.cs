@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Homework2.Classes;
 
@@ -9,6 +10,11 @@ public class Subject
     public string Description { get; private set; }
     public string TeacherId { get; private set; }
     public List<int> StudentsEnrolled { get; set; }
+
+    public string TeacherName => SubjectHandler.GetUsers()
+    .Where(u => u.Value is Teacher && u.Value.Id == int.Parse(TeacherId))
+    .Select(u => u.Value.Name)
+    .Single();
 
     public Subject(int id, string name, string description, string teacherId, List<int> studentsEnrolled)
     {
