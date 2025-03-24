@@ -70,7 +70,7 @@ public class MainWindowViewModel : ViewModelBase
         StudentViewCommand = new CommandHandler(() => ChangeView(new StudentViewModel(User)));
         TeacherViewCommand = new CommandHandler(() => ChangeView(new TeacherViewModel(User)));
         LoginViewCommand = new CommandHandler(() => ChangeView(new LoginViewModel(this)));
-        EditTeachersCommand = new CommandHandler(() => ChangeView(new EditViewModel()));
+        EditTeachersCommand = new CommandHandler(() => ChangeView(new EditViewModel(User)));
         EnrollStudentsCommand = new CommandHandler(() => ChangeView(new EnrollViewModel(User)));
     
     }
