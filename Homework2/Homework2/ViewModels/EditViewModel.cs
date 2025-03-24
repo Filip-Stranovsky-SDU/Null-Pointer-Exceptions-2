@@ -28,8 +28,11 @@ public class EditViewModel : ViewModelBase
         get => selectedSubject;
         set {this.RaiseAndSetIfChanged(ref selectedSubject, value);
             IsSelected = true;
-            EditedName = value.Name;
-            EditedDescription = value.Description;
+            if (value != null)
+            {
+                EditedName = value.Name;
+                EditedDescription = value.Description;
+            }
         }
     }
     private bool isSelected = false;
