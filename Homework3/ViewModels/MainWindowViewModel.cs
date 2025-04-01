@@ -98,7 +98,7 @@ public class MainWindowViewModel : ViewModelBase
     private void LoadData()
     {
         var games = DataLoader.LoadData<Sale>(
-            "/Users/matus/Desktop/homework/homework3-livecharts/homework3-livecharts/Assets/VideoGamesSales.csv");
+            "./Assets/VideoGamesSales.csv");
         foreach (var game in games)
         {
             Sales.Add(game);
