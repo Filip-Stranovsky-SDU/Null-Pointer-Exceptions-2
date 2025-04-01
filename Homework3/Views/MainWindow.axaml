@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:homework3_livecharts.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalonia="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="homework3_livecharts.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="homework3_livecharts">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <SplitView IsPaneOpen="true" CompactPaneLength="40" OpenPaneLength="250">
+        <SplitView.Pane>
+            <Border BorderBrush="#450C00" BorderThickness="0 0 2 0" Background="White">
+                <StackPanel Spacing="10" Margin="5">
+                    <ToggleButton Classes="Pane" IsChecked="{Binding Chocolate}">
+                        <Label Foreground="black">Chocolate Sales</Label>
+                    </ToggleButton>
+                    <ToggleButton Classes="Pane" IsChecked="{Binding ECommerce}">
+                        <Label Foreground="Black">ECommerce</Label>
+                    </ToggleButton>
+                    <ToggleButton Classes="Pane" IsChecked="{Binding GlobalFoodWastage}">
+                        <Label Foreground="Black">Global Food Wastage</Label>
+                    </ToggleButton>
+                    <ToggleButton Classes="Pane" IsChecked="{Binding GlobalMusicStreaming}">
+                        <Label Foreground="Black">Global Music Streaming</Label>
+                    </ToggleButton>
+                    <ToggleButton Classes="Pane" IsChecked="{Binding Kicksterter}">
+                        <Label Foreground="Black">Kickstarter Project Data</Label>
+                    </ToggleButton>
+                    <ToggleButton Classes="Pane" IsChecked="{Binding StudentPerformance}">
+                        <Label Foreground="Black">Student Performance Factors</Label>
+                    </ToggleButton>
+                    <ToggleButton Classes="Pane" IsChecked="{Binding VideoGames}">
+                        <Label Foreground="Black">Video Games Sales</Label>
+                    </ToggleButton>
+                </StackPanel>
+            </Border>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid>
+                <avalonia:CartesianChart IsVisible="{Binding Chocolate}"
+                    Series="{Binding SalesChart}" 
+                    XAxes="{Binding XAxes}" 
+                    YAxes="{Binding YAxes}" />
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
+
+</Window>

@@ -1,0 +1,40 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+    <Style Selector="ToggleButton.Pane">
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="CornerRadius" Value="20"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="BorderBrush" Value="Transparent"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
+    </Style>
+    
+    <Style Selector="ToggleButton.Pane:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#fbf7f7"></Setter>
+        <Setter Property="CornerRadius" Value="20"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0.2"></BrushTransition>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0.2"></TransformOperationsTransition>
+                </Transitions>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="#450C00"></Setter>
+    </Style>
+    
+    <Style Selector="ToggleButton.Pane:checked /template/ ContentPresenter">
+        <Setter Property="Background" Value="#fbf7f7"></Setter>
+        <Setter Property="CornerRadius" Value="20"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="BorderBrush" Value="#450C00"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+</Styles>
