@@ -11,6 +11,7 @@ using SkiaSharp;
 namespace homework3_livecharts.ViewModels;
 using ReactiveUI;
 using homework3_livecharts.Models;
+using System.IO;
 
 public class MainWindowViewModel : ViewModelBase
 {
@@ -98,7 +99,7 @@ public class MainWindowViewModel : ViewModelBase
     private void LoadData()
     {
         var games = DataLoader.LoadData<Sale>(
-            "./Assets/VideoGamesSales.csv");
+            Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.Parent!.FullName, "Assets", "VideoGamesSales.csv"));
         foreach (var game in games)
         {
             Sales.Add(game);
