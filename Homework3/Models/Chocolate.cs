@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Cholocate
+public class Chocolate
 {
     [Name("Sales Person")]
     public string SalesPerson { get; set; }

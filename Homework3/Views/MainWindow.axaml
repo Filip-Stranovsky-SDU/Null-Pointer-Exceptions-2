@@ -18,35 +18,24 @@
 
     <SplitView IsPaneOpen="true" CompactPaneLength="40" OpenPaneLength="250">
         <SplitView.Pane>
-            <Border BorderBrush="#450C00" BorderThickness="0 0 2 0" Background="White">
-                <StackPanel Spacing="10" Margin="5">
-                    <ToggleButton Classes="Pane" IsChecked="{Binding Chocolate}">
-                        <Label Foreground="black">Chocolate Sales</Label>
-                    </ToggleButton>
-                    <ToggleButton Classes="Pane" IsChecked="{Binding ECommerce}">
-                        <Label Foreground="Black">ECommerce</Label>
-                    </ToggleButton>
-                    <ToggleButton Classes="Pane" IsChecked="{Binding GlobalFoodWastage}">
-                        <Label Foreground="Black">Global Food Wastage</Label>
-                    </ToggleButton>
-                    <ToggleButton Classes="Pane" IsChecked="{Binding GlobalMusicStreaming}">
-                        <Label Foreground="Black">Global Music Streaming</Label>
-                    </ToggleButton>
-                    <ToggleButton Classes="Pane" IsChecked="{Binding Kicksterter}">
-                        <Label Foreground="Black">Kickstarter Project Data</Label>
-                    </ToggleButton>
-                    <ToggleButton Classes="Pane" IsChecked="{Binding StudentPerformance}">
-                        <Label Foreground="Black">Student Performance Factors</Label>
-                    </ToggleButton>
-                    <ToggleButton Classes="Pane" IsChecked="{Binding VideoGames}">
-                        <Label Foreground="Black">Video Games Sales</Label>
-                    </ToggleButton>
-                </StackPanel>
-            </Border>
+            
+                <ItemsControl ItemsSource="{Binding Buttons}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding .}" Height="40" Width="100" HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            
         </SplitView.Pane>
         <SplitView.Content>
             <Grid>
-                <avalonia:CartesianChart IsVisible="{Binding Chocolate}"
+                <avalonia:CartesianChart
                     Series="{Binding SalesChart}" 
                     XAxes="{Binding XAxes}" 
                     YAxes="{Binding YAxes}" />

@@ -7,61 +7,22 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
+using System.Reactive;
 
 namespace homework3_livecharts.ViewModels;
 using ReactiveUI;
 using homework3_livecharts.Models;
+using System.Diagnostics;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    private bool chocolate;
-    public bool Chocolate
+    private ObservableCollection<string> _buttons;
+    public ObservableCollection<string> Buttons
     {
-        get => chocolate;
-        set => this.RaiseAndSetIfChanged(ref chocolate, value);
+        get => _buttons;
+        set => _buttons = value;
     }
-
-    private bool eCommerce;
-    public bool ECommerce
-    {
-        get => eCommerce;
-        set => this.RaiseAndSetIfChanged(ref eCommerce, value);
-    }
-
-    private bool globalFoodWastage;
-    public bool GlobalFoodWastage
-    {
-        get => globalFoodWastage;
-        set => this.RaiseAndSetIfChanged(ref globalFoodWastage, value);
-    }
-
-    private bool globalMusicStreaming;
-    public bool GlobalMusicStreaming
-    {
-        get => globalMusicStreaming;
-        set => this.RaiseAndSetIfChanged(ref globalMusicStreaming, value);
-    }
-
-    private bool kicksterter;
-    public bool Kicksterter
-    {
-        get => kicksterter;
-        set => this.RaiseAndSetIfChanged(ref kicksterter, value);
-    }
-
-    private bool studentPerformance;
-    public bool StudentPerformance
-    {
-        get => studentPerformance;
-        set => this.RaiseAndSetIfChanged(ref studentPerformance, value);
-    }
-    
-    private bool videoGames;
-    public bool VideoGames
-    {
-        get => videoGames;
-        set => this.RaiseAndSetIfChanged(ref videoGames, value);
-    }
+    public ReactiveCommand<string, Unit> ButtonClickCommand { get; }
 
     public ObservableCollection<Sale> Sales { get; set; }
     public ObservableCollection<Project> Projects { get; set; }
@@ -69,7 +30,7 @@ public class MainWindowViewModel : ViewModelBase
     public ObservableCollection<FoodWastage> FoodWastages { get; set; }
     public ObservableCollection<Factor> Factors { get; set; }
     public ObservableCollection<ECommerce> ECommerces { get; set; }
-    public ObservableCollection<Cholocate> Cholocates { get; set; }
+    public ObservableCollection<Chocolate> Chocolates { get; set; }
     
     public ISeries[] SalesChart { get; set; }
     public Axis[] XAxes { get; set; }
@@ -77,22 +38,20 @@ public class MainWindowViewModel : ViewModelBase
     
     public MainWindowViewModel()
     {
-        Chocolate = false;
-        ECommerce = false;
-        GlobalFoodWastage = false;
-        GlobalMusicStreaming = false;
-        Kicksterter = false;
-        StudentPerformance = false;
-        VideoGames = false;
         Sales = new ObservableCollection<Sale>();
         Projects = new ObservableCollection<Project>();
         Musics = new ObservableCollection<Music>();
         FoodWastages = new ObservableCollection<FoodWastage>();
         Factors = new ObservableCollection<Factor>();
         ECommerces = new ObservableCollection<ECommerce>();
-        Cholocates = new ObservableCollection<Cholocate>();
+        Chocolates = new ObservableCollection<Chocolate>();
         this.LoadData();
-        this.CreateCharts();
+        //this.CreateCharts();
+        
+        Buttons = new ObservableCollection<string> { "Button 1", "Button 2", "Button 3" };
+
+        ButtonClickCommand = ReactiveCommand.Create<string>(OnButtonClick);
+
     }
 
     private void LoadData()
@@ -141,5 +100,15 @@ public class MainWindowViewModel : ViewModelBase
                 TextSize = 12
             }
         };
+    }
+
+    private void OnButtonClick(string buttonText)
+    {
+        Debug.WriteLine(buttonText);
+        if (buttonText == "Button 1")
+        {
+            CreateCharts();
+        }
+
     }
 }
