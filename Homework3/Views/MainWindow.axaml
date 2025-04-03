@@ -10,12 +10,6 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="homework3_livecharts">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-
     <SplitView IsPaneOpen="true" CompactPaneLength="40" OpenPaneLength="250">
         <SplitView.Pane>
             
@@ -27,7 +21,11 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Content="{Binding .}" Height="40" Width="100" HorizontalAlignment="Center"/>
+                            <Button Content="{Binding .}" Height="40" Width="100" HorizontalAlignment="Center"
+                                Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ButtonClickCommand}"
+
+                                CommandParameter="{Binding .}" />
+
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

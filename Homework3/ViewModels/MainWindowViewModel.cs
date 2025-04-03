@@ -23,7 +23,8 @@ public class MainWindowViewModel : ViewModelBase
         get => _buttons;
         set => _buttons = value;
     }
-    public ReactiveCommand<string, Unit> ButtonClickCommand { get; }
+
+    public ReactiveCommand<string, Unit> ButtonClickCommand { get; private set;}
 
     public ObservableCollection<Sale> Sales { get; set; }
     public ObservableCollection<Project> Projects { get; set; }
@@ -49,10 +50,10 @@ public class MainWindowViewModel : ViewModelBase
         this.LoadData();
         //this.CreateCharts();
         
-        Buttons = new ObservableCollection<string> { "Button 1", "Button 2", "Button 3" };
-
         ButtonClickCommand = ReactiveCommand.Create<string>(OnButtonClick);
 
+        Buttons = new ObservableCollection<string> { "Button 1", "Button 2", "Button 3" };
+        
     }
 
     private void LoadData()
@@ -105,7 +106,6 @@ public class MainWindowViewModel : ViewModelBase
 
     private void OnButtonClick(string buttonText)
     {
-        Debug.WriteLine(buttonText);
         if (buttonText == "Button 1")
         {
             CreateCharts();
