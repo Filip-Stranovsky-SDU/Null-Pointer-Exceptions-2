@@ -33,10 +33,10 @@ public class MainWindowViewModel : ViewModelBase
     public ObservableCollection<Factor> Factors { get; set; }
     public ObservableCollection<ECommerce> ECommerces { get; set; }
     public ObservableCollection<Chocolate> Chocolates { get; set; }
-    
-    public ISeries[] SalesChart { get; set; }
-    public Axis[] XAxes { get; set; }
-    public Axis[] YAxes { get; set; }
+    public ObservableCollection<ISeries> SalesChart { get; private set;} = new();
+    public ObservableCollection<Axis> XAxes { get; private set;} = new() {new Axis()};
+    public ObservableCollection<Axis> YAxes { get; private set;} = new() {new Axis()};
+
     
     public MainWindowViewModel()
     {
@@ -73,18 +73,16 @@ public class MainWindowViewModel : ViewModelBase
             .OrderByDescending(s => s.Global_Sales)
             .Take(10) // Take top 10 games
             .ToList();
-
-        SalesChart = new ISeries[]
-        {
+        SalesChart.Clear();
+        SalesChart.Add(
             new ColumnSeries<double>
             {
                 Values = topSales.Select(s => Convert.ToDouble(s.Global_Sales)).ToArray(),
                 Fill = new SolidColorPaint(SKColors.Blue)
             }
-        };
-
-        XAxes = new[]
-        {
+        );
+        XAxes.Clear();
+        XAxes.Add(
             new Axis
             {
                 Labels = topSales.Select(s => s.Name).ToArray(),
@@ -92,23 +90,22 @@ public class MainWindowViewModel : ViewModelBase
                 TextSize = 12,
                 Name = "Games"
             }
-        };
-
-        YAxes = new[]
-        {
+        );
+        YAxes.Clear();
+        YAxes.Add(
             new Axis
             {
                 Name = "Sales (Millions)",
                 TextSize = 12
             }
-        };
+        );
     }
 
     private void OnButtonClick(string buttonText)
     {
         if (buttonText == "Button 1")
         {
-            CreateCharts();
+            this.CreateCharts();
         }
 
     }
