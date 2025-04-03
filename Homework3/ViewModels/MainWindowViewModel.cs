@@ -8,12 +8,17 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 using System.Reactive;
-
-namespace homework3_livecharts.ViewModels;
 using ReactiveUI;
 using homework3_livecharts.Models;
 using System.IO;
 using System.Diagnostics;
+using System.Linq.Expressions;
+using System.Text.RegularExpressions;
+
+
+
+
+namespace homework3_livecharts.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
@@ -66,12 +71,14 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
     
-    private void CreateCharts()
+    private void CreateCharts(Expression<Func<Sale, bool>> filter, int count = 10)
     {
         var topSales = Sales
-            .Where(s => s.Global_Sales > 0)  // Filter out invalid values
+            .AsQueryable()
+            .Where(filter)  // Query
+            .Where(s => s.Global_Sales > 0) // Ensure valid sales data
             .OrderByDescending(s => s.Global_Sales)
-            .Take(10) // Take top 10 games
+            .Take(count) // Take top 10 games
             .ToList();
         SalesChart.Clear();
         SalesChart.Add(
@@ -103,9 +110,19 @@ public class MainWindowViewModel : ViewModelBase
 
     private void OnButtonClick(string buttonText)
     {
-        if (buttonText == "Button 1")
+        switch (buttonText)
         {
-            this.CreateCharts();
+            case "Button 1":
+                this.CreateCharts(s => true); // No query
+                break;
+
+            case "Button 2":
+                this.CreateCharts(s => s.Platform == "X360"); // XBox 360 games only
+                break;
+
+            case "Button 3":
+                this.CreateCharts(s => Regex.IsMatch(s.Year, @"^\d+$") && int.Parse(s.Year) < 2000); // Games released before year 2000
+                break;
         }
 
     }
