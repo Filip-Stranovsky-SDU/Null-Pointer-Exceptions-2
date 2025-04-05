@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using HarfBuzzSharp;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
@@ -11,7 +9,6 @@ using System.Reactive;
 using ReactiveUI;
 using homework3_livecharts.Models;
 using System.IO;
-using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
@@ -57,7 +54,7 @@ public class MainWindowViewModel : ViewModelBase
         
         ButtonClickCommand = ReactiveCommand.Create<string>(OnButtonClick);
 
-        Buttons = new ObservableCollection<string> { "Button 1", "Button 2", "Button 3" };
+        Buttons = new ObservableCollection<string> { "Most Sales", "XBox 360 Sales", "Sales pre 2000", "Sales by Year", "Nintendo Sales" };
         
     }
 
@@ -71,7 +68,7 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
     
-    private void CreateCharts(Expression<Func<Sale, bool>> filter, int count = 10)
+    private void CreateBarChart(Expression<Func<Sale, bool>> filter, int count = 10)
     {
         var topSales = Sales
             .AsQueryable()
@@ -81,7 +78,7 @@ public class MainWindowViewModel : ViewModelBase
             .Take(count) // Take top 10 games
             .ToList();
         SalesChart.Clear();
-        SalesChart.Add(
+        SalesChart.Add(  
             new ColumnSeries<double>
             {
                 Values = topSales.Select(s => Convert.ToDouble(s.Global_Sales)).ToArray(),
@@ -108,20 +105,69 @@ public class MainWindowViewModel : ViewModelBase
         );
     }
 
+    private void CreateLineChart(Expression<Func<Sale, bool>> filter)
+    {
+        var years = Sales
+            .AsQueryable()
+            .Where(filter)
+            .Where(s => !string.IsNullOrEmpty(s.Year) && s.Year != "N/A")
+            .GroupBy(s => s.Year) //group games by year
+            .Select(s => new //assign total sales to each year
+            {
+                Year = s.Key,
+                TotalSales = s.Sum(s => s.Global_Sales)
+            })
+            .OrderBy(s => s.Year);
+        SalesChart.Clear();
+        SalesChart.Add(
+            new LineSeries<double>
+            {
+                Values = years.Select(s => Convert.ToDouble(s.TotalSales)).ToArray(),
+                Fill = new SolidColorPaint(SKColors.Blue)
+            }
+        );
+        XAxes.Clear();
+        XAxes.Add(
+            new Axis
+            {
+                Labels = years.Select(s => s.Year).ToArray(),
+                LabelsRotation = 90,
+                TextSize = 12,
+                Name = "Years"
+            }
+        );
+        YAxes.Clear();
+        YAxes.Add(
+            new Axis
+            {
+                Name = "Sales (Millions)",
+                TextSize = 12
+            }
+        );
+    }
+
     private void OnButtonClick(string buttonText)
     {
         switch (buttonText)
         {
-            case "Button 1":
-                this.CreateCharts(s => true); // No query
+            case "Most Sales":
+                this.CreateBarChart(s => true); // No query
                 break;
 
-            case "Button 2":
-                this.CreateCharts(s => s.Platform == "X360"); // XBox 360 games only
+            case "XBox 360 Sales":
+                this.CreateBarChart(s => s.Platform == "X360"); // XBox 360 games only
                 break;
 
-            case "Button 3":
-                this.CreateCharts(s => Regex.IsMatch(s.Year, @"^\d+$") && int.Parse(s.Year) < 2000); // Games released before year 2000
+            case "Sales pre 2000":
+                this.CreateBarChart(s => Regex.IsMatch(s.Year, @"^\d+$") && int.Parse(s.Year) < 2000); // Games released before year 2000
+                break;
+
+            case "Sales by Year":
+                this.CreateLineChart(s => true);
+                break;
+
+            case "Nintendo Sales":
+                this.CreateLineChart(s => s.Publisher == "Nintendo"); //Games from Nintendo
                 break;
         }
 

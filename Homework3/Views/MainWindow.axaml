@@ -21,7 +21,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Content="{Binding .}" Height="40" Width="100" HorizontalAlignment="Center"
+                            <Button Content="{Binding .}" Height="40" Width="150" HorizontalAlignment="Center"
                                 Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ButtonClickCommand}"
 
                                 CommandParameter="{Binding .}" />
@@ -33,7 +33,7 @@
         </SplitView.Pane>
         <SplitView.Content>
             <Grid>
-                <avalonia:CartesianChart
+                <avalonia:CartesianChart Margin="250,0,0,0"
                     Series="{Binding SalesChart}" 
                     XAxes="{Binding XAxes}" 
                     YAxes="{Binding YAxes}" />
