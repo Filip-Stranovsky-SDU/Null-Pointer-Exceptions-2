@@ -8,9 +8,10 @@
         x:Class="homework3_livecharts.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="homework3_livecharts">
+        Title="homework3_livecharts"
+        xmlns:local="clr-namespace:homework3_livecharts.Views">
 
-    <SplitView IsPaneOpen="true" CompactPaneLength="40" OpenPaneLength="250">
+    <SplitView IsPaneOpen="true" CompactPaneLength="40" OpenPaneLength="250" >
         <SplitView.Pane>
             
                 <ItemsControl ItemsSource="{Binding Buttons}">
@@ -32,13 +33,19 @@
             
         </SplitView.Pane>
         <SplitView.Content>
-            <Grid>
-                <avalonia:CartesianChart Margin="250,0,0,0"
-                    Series="{Binding SalesChart}" 
-                    XAxes="{Binding XAxes}" 
-                    YAxes="{Binding YAxes}" />
-            </Grid>
+            <ItemsControl ItemsSource="{Binding Charts}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Width="400"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:ChartView />
+                </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </SplitView.Content>
     </SplitView>
-
+    
 </Window>

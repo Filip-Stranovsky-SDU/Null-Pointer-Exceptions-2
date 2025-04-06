@@ -27,7 +27,7 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     public ReactiveCommand<string, Unit> ButtonClickCommand { get; private set;}
-
+    
     public ObservableCollection<Sale> Sales { get; set; }
     public ObservableCollection<Project> Projects { get; set; }
     public ObservableCollection<Music> Musics { get; set; }
@@ -35,10 +35,14 @@ public class MainWindowViewModel : ViewModelBase
     public ObservableCollection<Factor> Factors { get; set; }
     public ObservableCollection<ECommerce> ECommerces { get; set; }
     public ObservableCollection<Chocolate> Chocolates { get; set; }
-    public ObservableCollection<ISeries> SalesChart { get; private set;} = new();
-    public ObservableCollection<Axis> XAxes { get; private set;} = new() {new Axis()};
-    public ObservableCollection<Axis> YAxes { get; private set;} = new() {new Axis()};
 
+    private ObservableCollection<ChartViewModel> _charts;
+    public ObservableCollection<ChartViewModel> Charts
+    {
+        get => _charts;
+        set => this.RaiseAndSetIfChanged(ref _charts, value);
+    }
+    
     
     public MainWindowViewModel()
     {
@@ -49,61 +53,28 @@ public class MainWindowViewModel : ViewModelBase
         Factors = new ObservableCollection<Factor>();
         ECommerces = new ObservableCollection<ECommerce>();
         Chocolates = new ObservableCollection<Chocolate>();
-        this.LoadData();
         //this.CreateCharts();
         
         ButtonClickCommand = ReactiveCommand.Create<string>(OnButtonClick);
 
         Buttons = new ObservableCollection<string> { "Most Sales", "XBox 360 Sales", "Sales pre 2000", "Sales by Year", "Nintendo Sales" };
+        ChartData cd = ChartCreator.GetChartData(s => true);
         
+        Charts = new(){
+
+        (
+            new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
+        ),
+        (
+            new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
+        ),
+        (
+            new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
+        )
+        };
     }
 
-    private void LoadData()
-    {
-        var games = DataLoader.LoadData<Sale>(
-            Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.Parent!.FullName, "Assets", "VideoGamesSales.csv"));
-        foreach (var game in games)
-        {
-            Sales.Add(game);
-        }
-    }
     
-    private void CreateBarChart(Expression<Func<Sale, bool>> filter, int count = 10)
-    {
-        var topSales = Sales
-            .AsQueryable()
-            .Where(filter)  // Query
-            .Where(s => s.Global_Sales > 0) // Ensure valid sales data
-            .OrderByDescending(s => s.Global_Sales)
-            .Take(count) // Take top 10 games
-            .ToList();
-        SalesChart.Clear();
-        SalesChart.Add(  
-            new ColumnSeries<double>
-            {
-                Values = topSales.Select(s => Convert.ToDouble(s.Global_Sales)).ToArray(),
-                Fill = new SolidColorPaint(SKColors.Blue)
-            }
-        );
-        XAxes.Clear();
-        XAxes.Add(
-            new Axis
-            {
-                Labels = topSales.Select(s => s.Name).ToArray(),
-                LabelsRotation = 30, 
-                TextSize = 12,
-                Name = "Games"
-            }
-        );
-        YAxes.Clear();
-        YAxes.Add(
-            new Axis
-            {
-                Name = "Sales (Millions)",
-                TextSize = 12
-            }
-        );
-    }
 
     private void CreateLineChart(Expression<Func<Sale, bool>> filter)
     {
@@ -148,28 +119,43 @@ public class MainWindowViewModel : ViewModelBase
 
     private void OnButtonClick(string buttonText)
     {
+        Expression<Func<Sale, bool>> filter;
         switch (buttonText)
         {
             case "Most Sales":
-                this.CreateBarChart(s => true); // No query
+                filter = (s => true); // No query
                 break;
 
             case "XBox 360 Sales":
-                this.CreateBarChart(s => s.Platform == "X360"); // XBox 360 games only
+                filter = (s => s.Platform == "X360"); // XBox 360 games only
                 break;
 
             case "Sales pre 2000":
-                this.CreateBarChart(s => Regex.IsMatch(s.Year, @"^\d+$") && int.Parse(s.Year) < 2000); // Games released before year 2000
+                filter = (s => Regex.IsMatch(s.Year, @"^\d+$") && int.Parse(s.Year) < 2000); // Games released before year 2000
                 break;
 
             case "Sales by Year":
-                this.CreateLineChart(s => true);
+                filter = (s => true);
                 break;
 
             case "Nintendo Sales":
-                this.CreateLineChart(s => s.Publisher == "Nintendo"); //Games from Nintendo
+                filter = (s => s.Publisher == "Nintendo"); //Games from Nintendo
+                break;
+            default:
+                filter = (s => true);
                 break;
         }
+        ChartData cd = ChartCreator.GetChartData(filter);
+        Charts.Add(
+            new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
+        );
+
 
     }
+    public void DeleteChart(ChartViewModel chart) 
+    {
+        Charts.Remove(chart);
+    }
+
+
 }
