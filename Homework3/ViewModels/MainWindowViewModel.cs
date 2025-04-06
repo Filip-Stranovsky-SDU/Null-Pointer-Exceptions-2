@@ -74,49 +74,6 @@ public class MainWindowViewModel : ViewModelBase
         };
     }
 
-    
-
-    private void CreateLineChart(Expression<Func<Sale, bool>> filter)
-    {
-        var years = Sales
-            .AsQueryable()
-            .Where(filter)
-            .Where(s => !string.IsNullOrEmpty(s.Year) && s.Year != "N/A")
-            .GroupBy(s => s.Year) //group games by year
-            .Select(s => new //assign total sales to each year
-            {
-                Year = s.Key,
-                TotalSales = s.Sum(s => s.Global_Sales)
-            })
-            .OrderBy(s => s.Year);
-        SalesChart.Clear();
-        SalesChart.Add(
-            new LineSeries<double>
-            {
-                Values = years.Select(s => Convert.ToDouble(s.TotalSales)).ToArray(),
-                Fill = new SolidColorPaint(SKColors.Blue)
-            }
-        );
-        XAxes.Clear();
-        XAxes.Add(
-            new Axis
-            {
-                Labels = years.Select(s => s.Year).ToArray(),
-                LabelsRotation = 90,
-                TextSize = 12,
-                Name = "Years"
-            }
-        );
-        YAxes.Clear();
-        YAxes.Add(
-            new Axis
-            {
-                Name = "Sales (Millions)",
-                TextSize = 12
-            }
-        );
-    }
-
     private void OnButtonClick(string buttonText)
     {
         Expression<Func<Sale, bool>> filter;

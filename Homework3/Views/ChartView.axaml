@@ -1,14 +1,14 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:charts="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
-             xmlns:viewModels="clr-namespace:homework3_livecharts.ViewModels"
-             x:Class="homework3_livecharts.Views.ChartView"
-             x:DataType="viewModels:ChartViewModel"
-            mc:Ignorable="d" >
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:homework3_livecharts.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalonia="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+        mc:Ignorable="d"
+        x:Class="homework3_livecharts.Views.ChartView"
+        x:DataType="vm:ChartViewModel" >
     <StackPanel Margin="10">
-        <charts:CartesianChart
+        <avalonia:CartesianChart
             Series="{Binding ChartSeries}"
             XAxes="{Binding XAxes}"
             YAxes="{Binding YAxes}"

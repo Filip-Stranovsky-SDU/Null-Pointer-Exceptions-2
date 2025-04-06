@@ -33,7 +33,7 @@
             
         </SplitView.Pane>
         <SplitView.Content>
-            <ItemsControl ItemsSource="{Binding Charts}">
+            <ItemsControl ItemsSource="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).Charts}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" Width="400"/>

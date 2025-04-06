@@ -63,6 +63,44 @@ public static class ChartCreator
         }
     }
 
+    private static ChartData CreateLineChart(Expression<Func<Sale, bool>> filter)
+    {
+        var years = sales
+            .AsQueryable()
+            .Where(filter)
+            .Where(s => !string.IsNullOrEmpty(s.Year) && s.Year != "N/A")
+            .GroupBy(s => s.Year) //group games by year
+            .Select(s => new //assign total sales to each year
+            {
+                Year = s.Key,
+                TotalSales = s.Sum(s => s.Global_Sales)
+            })
+            .OrderBy(s => s.Year);
+       ISeries[] salesChart =
+            {new LineSeries<double>
+            {
+                Values = years.Select(s => Convert.ToDouble(s.TotalSales)).ToArray(),
+                Fill = new SolidColorPaint(SKColors.Blue)
+            }
+            };
+        Axis[] xAxes = 
+            {new Axis
+            {
+                Labels = years.Select(s => s.Year).ToArray(),
+                LabelsRotation = 90,
+                TextSize = 12,
+                Name = "Years"
+            }};
+        Axis[] yAxes = 
+            {
+            new Axis
+            {
+                Name = "Sales (Millions)",
+                TextSize = 12
+            }};
+        return new ChartData(salesChart, xAxes, yAxes);
+    }
+
 
 
 
