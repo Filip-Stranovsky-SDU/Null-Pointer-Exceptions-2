@@ -13,27 +13,25 @@
 
     <SplitView IsPaneOpen="true" CompactPaneLength="40" OpenPaneLength="250" >
         <SplitView.Pane>
-            
-                <ItemsControl ItemsSource="{Binding Buttons}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Content="{Binding .}" Height="40" Width="150" HorizontalAlignment="Center"
-                                Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ButtonClickCommand}"
+            <ItemsControl ItemsSource="{Binding Buttons}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding .}" Height="40" Width="150" HorizontalAlignment="Center"
+                            Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ButtonClickCommand}"
 
-                                CommandParameter="{Binding .}" />
+                            CommandParameter="{Binding .}" />
 
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </SplitView.Pane>
-        <SplitView.Content>
-            <ItemsControl ItemsSource="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).Charts}">
+        
+            <ItemsControl ItemsSource="{Binding Charts}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" Width="400"/>
@@ -45,7 +43,8 @@
                 </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </SplitView.Content>
+
+
     </SplitView>
     
 </Window>

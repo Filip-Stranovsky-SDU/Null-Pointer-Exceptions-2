@@ -16,7 +16,7 @@ public class ChartViewModel : ViewModelBase
     public ISeries[] ChartSeries { get; private set; }
     public Axis[] XAxes { get; private set;}
     public Axis[] YAxes { get; private set;}
-    public ICommand DeleteButtonCommand { get; private set;}
+    public ReactiveCommand<Unit, Unit> DeleteButtonCommand { get; private set;}
 
     public MainWindowViewModel MWVM {get; private set;}
 
@@ -28,7 +28,7 @@ public class ChartViewModel : ViewModelBase
         YAxes = yAxes;
         MWVM = mwvm;
         
-        DeleteButtonCommand = new CommandHandler(DeleteSelf);
+        DeleteButtonCommand = ReactiveCommand.Create(DeleteSelf);
     }
     private void DeleteSelf()
     {

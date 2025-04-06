@@ -11,6 +11,7 @@ using homework3_livecharts.Models;
 using System.IO;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 
 
@@ -56,8 +57,10 @@ public class MainWindowViewModel : ViewModelBase
         //this.CreateCharts();
         
         ButtonClickCommand = ReactiveCommand.Create<string>(OnButtonClick);
-
+        
         Buttons = new ObservableCollection<string> { "Most Sales", "XBox 360 Sales", "Sales pre 2000", "Sales by Year", "Nintendo Sales" };
+        //Charts = new();
+        
         ChartData cd = ChartCreator.GetChartData(s => true);
         
         Charts = new(){
@@ -72,6 +75,7 @@ public class MainWindowViewModel : ViewModelBase
             new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
         )
         };
+        
     }
 
     private void OnButtonClick(string buttonText)
