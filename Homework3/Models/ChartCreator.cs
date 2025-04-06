@@ -63,7 +63,7 @@ public static class ChartCreator
         }
     }
 
-    private static ChartData CreateLineChart(Expression<Func<Sale, bool>> filter)
+    public static ChartData CreateLineChart(Expression<Func<Sale, bool>> filter)
     {
         var years = sales
             .AsQueryable()

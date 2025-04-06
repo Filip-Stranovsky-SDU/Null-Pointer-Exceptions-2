@@ -63,7 +63,7 @@ public class MainWindowViewModel : ViewModelBase
         
         ChartData cd = ChartCreator.GetChartData(s => true);
         
-        Charts = new(){
+        Charts = new()/*{
 
         (
             new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
@@ -74,39 +74,45 @@ public class MainWindowViewModel : ViewModelBase
         (
             new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
         )
-        };
+        }*/;
         
     }
 
     private void OnButtonClick(string buttonText)
     {
         Expression<Func<Sale, bool>> filter;
+        ChartData cd;
         switch (buttonText)
         {
             case "Most Sales":
                 filter = (s => true); // No query
+                cd = ChartCreator.GetChartData(filter);
                 break;
 
             case "XBox 360 Sales":
                 filter = (s => s.Platform == "X360"); // XBox 360 games only
+                cd = ChartCreator.GetChartData(filter);
                 break;
 
             case "Sales pre 2000":
                 filter = (s => Regex.IsMatch(s.Year, @"^\d+$") && int.Parse(s.Year) < 2000); // Games released before year 2000
+                cd = ChartCreator.GetChartData(filter);
                 break;
 
             case "Sales by Year":
                 filter = (s => true);
+                cd = ChartCreator.CreateLineChart(filter);
                 break;
 
             case "Nintendo Sales":
                 filter = (s => s.Publisher == "Nintendo"); //Games from Nintendo
+                cd = ChartCreator.CreateLineChart(filter);
                 break;
             default:
                 filter = (s => true);
+                cd = ChartCreator.GetChartData(filter);
                 break;
         }
-        ChartData cd = ChartCreator.GetChartData(filter);
         Charts.Add(
             new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
         );
