@@ -15,3 +15,9 @@ Json files are stored locally at
 - C:\Users\{username}\AppData\Roaming\Homework2 for Windows
 - /Users/{username}/Library/Application Support/Homework2 for Mac
 - /home/{username}/.config/Homework2 for Linux
+
+## Homework3
+To run use ```cd Homework3``` ```dotnet run```
+
+Early design idea:\
+https://www.figma.com/proto/pyVmIlPtl7BQhLXSMX7gsz/AOOP-Homework3?node-id=1-11&p=f&t=Ro6XDUBWrYr6SAHy-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A11
