@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         x:Class="homework3_livecharts.Views.ChartView"
         x:DataType="vm:ChartViewModel" >
-    <Grid Margin="10">
+    <Grid Margin="10" ColumnDefinitions="*,Auto" Height="400" VerticalAlignment="Stretch">
         <avalonia:CartesianChart
             Series="{Binding ChartSeries}"
             XAxes="{Binding XAxes}"
             YAxes="{Binding YAxes}"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch" />
-        <Button Content="Delete" Command="{Binding DeleteButtonCommand}"/>
+            Height="380" VerticalAlignment="Stretch"
+            Grid.Column="0" />
+        <Button Content="Delete" Command="{Binding DeleteButtonCommand}" Grid.Column="1"/>
     </Grid>
 </UserControl>

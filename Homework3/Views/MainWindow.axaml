@@ -11,13 +11,9 @@
         Title="homework3_livecharts"
         xmlns:local="clr-namespace:homework3_livecharts.Views">
 <DockPanel>
-    <!-- Sidebar panel -->
-    <Grid DockPanel.Dock="Left" Width="250">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />   <!-- ItemsControl takes available space -->
-            <RowDefinition Height="Auto" /> <!-- Bottom panel takes only needed space -->
-        </Grid.RowDefinitions>
-        <StackPanel  Width="250" Grid.Row="0">
+    <Grid RowDefinitions="*,Auto">
+        <!-- Sidebar panel -->
+        <StackPanel DockPanel.Dock="Left" Width="150" Grid.Row="0">
             <ItemsControl ItemsSource="{Binding Buttons}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -34,17 +30,18 @@
             </ItemsControl>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Width="250">
-            <Button Content="Undo" Command="{Binding UndoButtonCommand}"/>
-            <Button Content="Redo" Command="{Binding RedoButtonCommand}"/>
+        <StackPanel  Grid.Row="1" Orientation="Horizontal">
+            <Button Content="Undo" Command="{Binding UndoButtonCommand}" />
+            <Button Content="Redo" Command="{Binding RedoButtonCommand}" />
         </StackPanel>
     </Grid>
+
     <!-- Main content panel -->
     <ScrollViewer>
         <ItemsControl ItemsSource="{Binding Charts}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" Width="400"/>
+                    <StackPanel Orientation="Vertical"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -56,5 +53,4 @@
     </ScrollViewer>
 </DockPanel>
 
-    
 </Window>
