@@ -19,7 +19,7 @@ public static class ChartCreator
 
     
     private static ObservableCollection<Sale> sales = new();
-    public static ChartData GetChartData(Expression<Func<Sale, bool>> filter, int count = 10)
+    public static ChartData GetBarChartData(Expression<Func<Sale, bool>> filter, int count = 10)
     {
         if (sales.Count == 0) LoadData();
 
@@ -63,7 +63,7 @@ public static class ChartCreator
         }
     }
 
-    public static ChartData CreateLineChart(Expression<Func<Sale, bool>> filter)
+    public static ChartData GetLineChartData(Expression<Func<Sale, bool>> filter)
     {
         var years = sales
             .AsQueryable()
