@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.Painting;
-using SkiaSharp;
 using System.Reactive;
 using ReactiveUI;
 using homework3_livecharts.Models;
-using System.IO;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using System.Diagnostics;
 using System.Collections.Generic;
 
 
@@ -41,11 +34,6 @@ public class MainWindowViewModel : ViewModelBase
         get => _charts;
         set => this.RaiseAndSetIfChanged(ref _charts, value);
     }
-    private Stack<KeyValuePair<bool, ChartViewModel>> undoStack = new();
-    
-    private Stack<KeyValuePair<bool, ChartViewModel>> redoStack = new();
-    
-    
     public MainWindowViewModel()
     {        
         ButtonClickCommand = ReactiveCommand.Create<string>(OnButtonClick);
@@ -98,34 +86,25 @@ public class MainWindowViewModel : ViewModelBase
                 break;
         }
         ChartViewModel temp = new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this);
-        undoStack.Push(new(true, temp));
-        redoStack.Clear();
+        
+        UndoRedoHandler.AddChart(temp);
         Charts.Add(temp);
 
 
     }
     public void DeleteChart(ChartViewModel chart) 
     {
-        undoStack.Push(new(false, chart));
-        redoStack.Clear();
         Charts.Remove(chart);
+        UndoRedoHandler.RemoveChart(chart);
     }
 
     private void UndoButton()
     {
-        if (undoStack.Count==0) return;
-        if (undoStack.Peek().Key) Charts.Remove(undoStack.Peek().Value);
-        if (!undoStack.Peek().Key) Charts.Add(undoStack.Peek().Value);
-        redoStack.Push(undoStack.Peek());
-        undoStack.Pop();
+        UndoRedoHandler.Undo(Charts);
     }
     private void RedoButton()
     {
-        if (redoStack.Count==0) return;
-        if (!redoStack.Peek().Key) Charts.Remove(redoStack.Peek().Value);
-        if (redoStack.Peek().Key) Charts.Add(redoStack.Peek().Value);
-        undoStack.Push(redoStack.Peek());
-        redoStack.Pop();
+        UndoRedoHandler.Redo(Charts);
     }
 
 
