@@ -19,6 +19,7 @@ public static class ChartCreator
 
     
     private static ObservableCollection<Sale> sales = new();
+    private static SolidColorPaint whitePaint = new(new SKColor(255, 255, 255));
     public static ChartData GetChartData(Expression<Func<Sale, bool>> filter, int count = 10)
     {
         if (sales.Count == 0) LoadData();
@@ -42,13 +43,18 @@ public static class ChartCreator
                 Labels = topSales.Select(s => s.Name).ToArray(),
                 LabelsRotation = 30, 
                 TextSize = 12,
-                Name = "Games"
+                Name = "Games",
+                LabelsPaint = whitePaint,
+                NamePaint = whitePaint
+
             }};
         Axis[] yAxes = 
             {new Axis
             {
                 Name = "Sales (Millions)",
-                TextSize = 12
+                TextSize = 12,
+                LabelsPaint = whitePaint,
+                NamePaint = whitePaint
             }};
         return new ChartData(salesChart, xAxes, yAxes);
     }
@@ -89,14 +95,18 @@ public static class ChartCreator
                 Labels = years.Select(s => s.Year).ToArray(),
                 LabelsRotation = 90,
                 TextSize = 12,
-                Name = "Years"
+                Name = "Years",
+                LabelsPaint = whitePaint,
+                NamePaint = whitePaint
             }};
         Axis[] yAxes = 
             {
             new Axis
             {
                 Name = "Sales (Millions)",
-                TextSize = 12
+                TextSize = 12,
+                LabelsPaint = whitePaint,
+                NamePaint = whitePaint
             }};
         return new ChartData(salesChart, xAxes, yAxes);
     }
