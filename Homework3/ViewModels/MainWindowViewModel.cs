@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 
 
@@ -29,13 +30,10 @@ public class MainWindowViewModel : ViewModelBase
 
     public ReactiveCommand<string, Unit> ButtonClickCommand { get; private set;}
     
+    public ReactiveCommand<Unit, Unit> UndoButtonCommand { get; private set;}    
+    public ReactiveCommand<Unit, Unit> RedoButtonCommand { get; private set;}
+
     public ObservableCollection<Sale> Sales { get; set; }
-    public ObservableCollection<Project> Projects { get; set; }
-    public ObservableCollection<Music> Musics { get; set; }
-    public ObservableCollection<FoodWastage> FoodWastages { get; set; }
-    public ObservableCollection<Factor> Factors { get; set; }
-    public ObservableCollection<ECommerce> ECommerces { get; set; }
-    public ObservableCollection<Chocolate> Chocolates { get; set; }
 
     private ObservableCollection<ChartViewModel> _charts;
     public ObservableCollection<ChartViewModel> Charts
@@ -43,38 +41,24 @@ public class MainWindowViewModel : ViewModelBase
         get => _charts;
         set => this.RaiseAndSetIfChanged(ref _charts, value);
     }
+    private Stack<KeyValuePair<bool, ChartViewModel>> undoStack = new();
+    
+    private Stack<KeyValuePair<bool, ChartViewModel>> redoStack = new();
     
     
     public MainWindowViewModel()
-    {
-        Sales = new ObservableCollection<Sale>();
-        Projects = new ObservableCollection<Project>();
-        Musics = new ObservableCollection<Music>();
-        FoodWastages = new ObservableCollection<FoodWastage>();
-        Factors = new ObservableCollection<Factor>();
-        ECommerces = new ObservableCollection<ECommerce>();
-        Chocolates = new ObservableCollection<Chocolate>();
-        //this.CreateCharts();
-        
+    {        
         ButtonClickCommand = ReactiveCommand.Create<string>(OnButtonClick);
+        
+        RedoButtonCommand = ReactiveCommand.Create(RedoButton);
+        UndoButtonCommand = ReactiveCommand.Create(UndoButton);
         
         Buttons = new ObservableCollection<string> { "Most Sales", "XBox 360 Sales", "Sales pre 2000", "Sales by Year", "Nintendo Sales" };
         //Charts = new();
         
         ChartData cd = ChartCreator.GetChartData(s => true);
         
-        Charts = new()/*{
-
-        (
-            new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
-        ),
-        (
-            new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
-        ),
-        (
-            new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
-        )
-        }*/;
+        Charts = new();
         
     }
 
@@ -113,15 +97,35 @@ public class MainWindowViewModel : ViewModelBase
                 cd = ChartCreator.GetChartData(filter);
                 break;
         }
-        Charts.Add(
-            new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this)
-        );
+        ChartViewModel temp = new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this);
+        undoStack.Push(new(true, temp));
+        redoStack.Clear();
+        Charts.Add(temp);
 
 
     }
     public void DeleteChart(ChartViewModel chart) 
     {
+        undoStack.Push(new(false, chart));
+        redoStack.Clear();
         Charts.Remove(chart);
+    }
+
+    private void UndoButton()
+    {
+        if (undoStack.Count==0) return;
+        if (undoStack.Peek().Key) Charts.Remove(undoStack.Peek().Value);
+        if (!undoStack.Peek().Key) Charts.Add(undoStack.Peek().Value);
+        redoStack.Push(undoStack.Peek());
+        undoStack.Pop();
+    }
+    private void RedoButton()
+    {
+        if (redoStack.Count==0) return;
+        if (!redoStack.Peek().Key) Charts.Remove(redoStack.Peek().Value);
+        if (redoStack.Peek().Key) Charts.Add(redoStack.Peek().Value);
+        undoStack.Push(redoStack.Peek());
+        redoStack.Pop();
     }
 
 

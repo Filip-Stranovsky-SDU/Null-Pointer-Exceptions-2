@@ -10,9 +10,14 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="homework3_livecharts"
         xmlns:local="clr-namespace:homework3_livecharts.Views">
-
-    <SplitView IsPaneOpen="true" CompactPaneLength="40" OpenPaneLength="250" >
-        <SplitView.Pane>
+<DockPanel>
+    <!-- Sidebar panel -->
+    <Grid DockPanel.Dock="Left" Width="250">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />   <!-- ItemsControl takes available space -->
+            <RowDefinition Height="Auto" /> <!-- Bottom panel takes only needed space -->
+        </Grid.RowDefinitions>
+        <StackPanel  Width="250" Grid.Row="0">
             <ItemsControl ItemsSource="{Binding Buttons}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -22,29 +27,34 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Button Content="{Binding .}" Height="40" Width="150" HorizontalAlignment="Center"
-                            Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ButtonClickCommand}"
-
-                            CommandParameter="{Binding .}" />
-
+                                Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ButtonClickCommand}"
+                                CommandParameter="{Binding .}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </SplitView.Pane>
-        
-            <ItemsControl ItemsSource="{Binding Charts}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" Width="400"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Width="250">
+            <Button Content="Undo" Command="{Binding UndoButtonCommand}"/>
+            <Button Content="Redo" Command="{Binding RedoButtonCommand}"/>
+        </StackPanel>
+    </Grid>
+    <!-- Main content panel -->
+    <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding Charts}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" Width="400"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <local:ChartView />
                 </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
+</DockPanel>
 
-
-    </SplitView>
     
 </Window>
