@@ -44,7 +44,7 @@ public class MainWindowViewModel : ViewModelBase
         Buttons = new ObservableCollection<string> { "Most Sales", "XBox 360 Sales", "Sales pre 2000", "Sales by Year", "Nintendo Sales" };
         //Charts = new();
         
-        ChartData cd = ChartCreator.GetChartData(s => true);
+        ChartData cd = ChartCreator.GetBarChartData(s => true);
         
         Charts = new();
         
@@ -58,31 +58,31 @@ public class MainWindowViewModel : ViewModelBase
         {
             case "Most Sales":
                 filter = (s => true); // No query
-                cd = ChartCreator.GetChartData(filter);
+                cd = ChartCreator.GetBarChartData(filter);
                 break;
 
             case "XBox 360 Sales":
                 filter = (s => s.Platform == "X360"); // XBox 360 games only
-                cd = ChartCreator.GetChartData(filter);
+                cd = ChartCreator.GetBarChartData(filter);
                 break;
 
             case "Sales pre 2000":
                 filter = (s => Regex.IsMatch(s.Year, @"^\d+$") && int.Parse(s.Year) < 2000); // Games released before year 2000
-                cd = ChartCreator.GetChartData(filter);
+                cd = ChartCreator.GetBarChartData(filter);
                 break;
 
             case "Sales by Year":
                 filter = (s => true);
-                cd = ChartCreator.CreateLineChart(filter);
+                cd = ChartCreator.GetLineChartData(filter);
                 break;
 
             case "Nintendo Sales":
                 filter = (s => s.Publisher == "Nintendo"); //Games from Nintendo
-                cd = ChartCreator.CreateLineChart(filter);
+                cd = ChartCreator.GetLineChartData(filter);
                 break;
             default:
                 filter = (s => true);
-                cd = ChartCreator.GetChartData(filter);
+                cd = ChartCreator.GetBarChartData(filter);
                 break;
         }
         ChartViewModel temp = new ChartViewModel(cd.ChartSeries, cd.XAxes, cd.YAxes, this);

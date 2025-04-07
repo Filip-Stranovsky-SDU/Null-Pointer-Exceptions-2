@@ -20,7 +20,7 @@ public static class ChartCreator
     
     private static ObservableCollection<Sale> sales = new();
     private static SolidColorPaint whitePaint = new(new SKColor(255, 255, 255));
-    public static ChartData GetChartData(Expression<Func<Sale, bool>> filter, int count = 10)
+    public static ChartData GetBarChartData(Expression<Func<Sale, bool>> filter, int count = 10)
     {
         if (sales.Count == 0) LoadData();
 
@@ -69,7 +69,7 @@ public static class ChartCreator
         }
     }
 
-    public static ChartData CreateLineChart(Expression<Func<Sale, bool>> filter)
+    public static ChartData GetLineChartData(Expression<Func<Sale, bool>> filter)
     {
         var years = sales
             .AsQueryable()

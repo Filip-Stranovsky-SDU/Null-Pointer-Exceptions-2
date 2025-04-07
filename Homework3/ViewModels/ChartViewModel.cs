@@ -32,7 +32,6 @@ public class ChartViewModel : ViewModelBase
     }
     private void DeleteSelf()
     {
-        Debug.WriteLine("XD");
         MWVM.DeleteChart(this);
     }
     
