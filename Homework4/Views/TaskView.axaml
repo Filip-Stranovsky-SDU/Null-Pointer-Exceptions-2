@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Homework4.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Homework4.Views.TaskView"
+        x:DataType="vm:TaskViewModel"
+        >
+
+    <StackPanel>
+        <TextBlock Text="{Binding Text}"/>
+        <ProgressBar Value="{Binding Progress}"/>
+        <StackPanel Orientation="Horizontal">
+            <ItemsControl ItemsSource="{Binding SubTasks}">
+                <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding .}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ItemsControl ItemsSource="{Binding Progresses}" HorizontalAlignment="Right">
+                <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ProgressBar Value="{Binding .}" Width="200" Height="20" Margin="10,0,0,0"/>
+                </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
