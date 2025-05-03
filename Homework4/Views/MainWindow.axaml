@@ -25,14 +25,16 @@
                     <DataTemplate>
                         <Button Content="{Binding .}" Height="40" Width="150" HorizontalAlignment="Center"
                                 Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ButtonClickCommand}"
-                                CommandParameter="{Binding .}" />
+                                CommandParameter="{Binding .}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
 
         <StackPanel  Grid.Row="1" Orientation="Horizontal">
-            <Button Content="Show Log" Command="{Binding LogButtonCommand}" />
+            <Button Content="Save Log" Click="SaveButtonClick"/>
+			<Button Content="PauseAll" Command="{Binding PauseAllCommand}"/>
+			<Button Content="PlayAll" Command="{Binding PlayAllCommand}"/>
         </StackPanel>
     </Grid>
 
@@ -41,7 +43,7 @@
         <ItemsControl ItemsSource="{Binding Tasks}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:TaskView />
+                    <local:TaskView/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

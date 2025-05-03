@@ -9,7 +9,11 @@
         >
 
     <StackPanel>
-        <TextBlock Text="{Binding Text}"/>
+		<StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Text}"/>
+			<Button Content="{Binding IsCookingText}" Command="{Binding PauseCommand}"/>
+			<Button Content="Remove" Command="{Binding RemoveCommand}"/>
+		</StackPanel>
         <ProgressBar Value="{Binding Progress}"/>
         <StackPanel Orientation="Horizontal">
             <ItemsControl ItemsSource="{Binding SubTasks}">
@@ -19,7 +23,6 @@
                 </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-
             <ItemsControl ItemsSource="{Binding Progresses}" HorizontalAlignment="Right">
                 <ItemsControl.ItemTemplate>
                 <DataTemplate>
