@@ -20,6 +20,7 @@ public partial class TaskViewModel : ViewModelBase
     public bool IsCooking { get; set; }
     public Recipe Recipe { get; set; }
     private MainWindowViewModel main;
+    private CancellationTokenSource cts = new();
     [ObservableProperty]
     private string isCookingText;
     [ObservableProperty]
@@ -45,15 +46,15 @@ public partial class TaskViewModel : ViewModelBase
             SubTasks.Add(xd.Step);
         }
         
-        Task task = Task.Run(async () =>
+        Task.Run(async () =>
         {
             DateTime dateTime = DateTime.Now;
-            await Cook();
-            main.LoggedTasks.Add($"{dateTime},{Recipe}");
+            await Cook(cts.Token);
+            main.LoggedTasks.Add($"{dateTime},{Recipe}"); //never happens if Cook throws an exception
         });
     }
     
-    public async Task Cook()
+    public async Task Cook(CancellationToken token)
     {
         double total = Recipe.Steps.Sum(s => s.Duration);
         for (int i = 0; i < Recipe.Steps.Count; i++)
@@ -61,7 +62,8 @@ public partial class TaskViewModel : ViewModelBase
             StepClass step = Recipe.Steps[i];
             while (Progresses[i] < 100)
             {
-                Thread.Sleep(100);
+                token.ThrowIfCancellationRequested();
+                await Task.Delay(100, token);
                 if (!IsCooking) continue;
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
@@ -83,7 +85,8 @@ public partial class TaskViewModel : ViewModelBase
 
     private void Remove()
     {
-        main.Tasks.Remove(this);
+        cts.Cancel();
+        main.Tasks.Remove(this);        
     }
 }
 
